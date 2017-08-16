@@ -15,3 +15,6 @@ This app will be published. In the past, I made Simple RSS Reader for Android ([
 - redux (v3.7.2)
 - redux-react (v5.0.6)
 - redux-saga (v0.15.6)
+- react-navigation (v1.0.0-beta.11)
+- react-native-elements (v0.16.0)
+  - react-native-vector-icons (v4.3.0)
