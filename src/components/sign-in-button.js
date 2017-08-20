@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
 export const SignInButton = ({type, onPress}) => {
     let title = 'Sign in with ';
-    let backgroundColor = '';
+    let backgroundColor = '#f0ad4e';
     let textColor = '#fff';
 
     switch(type.toLowerCase()) {
@@ -27,6 +27,8 @@ export const SignInButton = ({type, onPress}) => {
         title += 'Google';
         backgroundColor = '#dd4b39';
         break;
+      default:
+        title += type;
     }
 
   return (
