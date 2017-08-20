@@ -1,38 +1,37 @@
 // At first, all actions through saga
 
+// select - get state
+
 // take - wait for action(dispatch)
 // put - do action
 // call - wait for api like getting data from internet
 
-// fork -
+// fork - to start another task
+// join - wait for another task which is done
 
 import { delay } from 'redux-saga';
 import { put, takeEvery, all } from 'redux-saga/effects';
 
-import { USER_SIGNIN_EMAIL } from './auth-type';
+import { USER_TEST, USER_SIGNIN_EMAIL } from './auth-type';
 
-const helloSaga = function* helloSaga() {
+function* hello() {
+  yield delay(1000);
   console.log('Hello, Redux Saga');
+  yield put ({
+    type: USER_TEST.SUCCESS
+  })
 }
-
-// function* asyncIncrement() {
-//   yield delay(1000);
-//   console.log('exec increment');
-//   yield put({
-//     type: INCREMENT
-//   })
-// }
 
 // takeEvery includes while loop
 // so watcher should use takeEvery
-// function* watchAsyncIncrement() {
-//   console.log('watching async increment');
-//   yield takeEvery(ASYNC_INCREMENT, asyncIncrement);
-// }
-
-export const authSaga = function* authSaga() {
-  console.log('exec authSaga');
-  yield all([
-    helloSaga
-  ]);
+export function* watchHello() {
+  console.log('watching dispath from sigin container');
+  yield takeEvery(USER_TEST.PENDING, hello);
 }
+
+// export const authSaga = function* authSaga() {
+//   console.log('exec authSaga');
+//   yield [
+//     fork(watchHello)
+//   ]
+// }

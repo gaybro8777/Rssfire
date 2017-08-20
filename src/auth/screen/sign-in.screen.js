@@ -24,9 +24,18 @@ class SignIn extends Component {
 
   props: {
     navigation: Object,
+    isPendingTest: Boolean,
   };
 
   render() {
+    const {
+      isPendingTest,
+    } = this.props;
+
+    console.log('isPendingTest:' + isPendingTest);
+
+    // console.log('Props:' + JSON.stringify(this.props));
+
     return (
       <FullViewContainer>
         <KeyboardAvoidingView
@@ -75,6 +84,7 @@ class SignIn extends Component {
             containerViewStyle={{ width: '85%' }}
             title="Sign in with E-mail"
             // onPress={() => this.signInWithEmail() }
+            onPress={() => this.props.testMethod() }
           />
           <Button
             // buttonStyle={}
