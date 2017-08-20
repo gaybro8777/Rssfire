@@ -22,6 +22,10 @@ class SignIn extends Component {
     resetNavigation('Home', navigation);
   }
 
+  funcTest() {
+    console.log('exec funcTest()');
+  }
+
   props: {
     navigation: Object,
     isPendingTest: Boolean,
@@ -42,26 +46,17 @@ class SignIn extends Component {
           // style={}
           behavior="padding"
         >
-          <Button
-            // buttonStyle={}
-            // textStyle={}
-            containerViewStyle={{ width: '85%' }}
-            title="Sign in with Facebook"
-            // onPress={() => }
+          <SignInButton
+            type="Facebook"
+            onPress={this.props.testMethod}
           />
-          <Button
-            // buttonStyle={}
-            // textStyle={}
-            containerViewStyle={{ width: '85%' }}
-            title="Sign in with Twitter"
-            // onPress={() => }
+          <SignInButton
+            type="Twitter"
+            onPress={this.funcTest}
           />
-          <Button
-            // buttonStyle={}
-            // textStyle={}
-            containerViewStyle={{ width: '85%' }}
-            title="Sign in with Google"
-            // onPress={() => }
+          <SignInButton
+            type="Google"
+            onPress={this.funcTest}
           />
           <TextInput
             // style={}

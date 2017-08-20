@@ -1,35 +1,49 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
-export class SignInButton extends Component {
-  constructor(props) {
-    super(props);
-  }
+const styles = StyleSheet.create({
+  buttonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});
 
-  props: {
-    title: String,
-    icon: Object,
-    backgroundColor: String,
-    borderRadius: Number,
-    color: String
-  }
+export const SignInButton = ({type, onPress}) => {
+    let title = 'Sign in with ';
+    let backgroundColor = '';
+    let textColor = '#fff';
 
-  render() {
-    return (
-      <Button
-        // raised
-        // large
-        // iconRight
-        // icon={{name: 'cached'}}
-        // buttonStyle={}
-        backgroundColor={`${this.props.backgroundColor}`}
-        borderRadius={`${this.props.backgroundColor}`}
-        color={`${this.props.backgroundColor}`}
-        // textStyle={}
-        fontSize="18"
-        underlayColor="transparent"
-        title={`${this.props.title}`}
-      />
-    );
-  }
+    switch(type.toLowerCase()) {
+      case 'facebook':
+        title += 'Facebook';
+        backgroundColor = '#3b5998';
+        break;
+      case 'twitter':
+        title += 'Twitter';
+        backgroundColor = '#1da1f2';
+        break;
+      case 'google':
+        title += 'Google';
+        backgroundColor = '#dd4b39';
+        break;
+    }
+
+  return (
+    <Button
+      // raised
+      // large
+      // iconRight
+      // icon={{name: 'cached'}}
+      buttonStyle={styles.buttonStyle}
+      backgroundColor={`${backgroundColor}`}
+      // borderRadius={`${this.props.backgroundColor}`}
+      // color={`${this.props.backgroundColor}`}
+      // textStyle={}
+      onPress={onPress}
+      fontSize={18}
+      underlayColor="transparent"
+      title={`${title}`}
+    />
+  );
 }
