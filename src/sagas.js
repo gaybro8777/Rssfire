@@ -3,12 +3,12 @@
 
 import { all } from 'redux-saga/effects';
 
-import { watchHello } from './auth/index';
+import { authSaga } from './auth/index';
 
 const rootSaga = function* rootSaga() {
   console.log('exec rootSaga');
   yield all([
-    watchHello()
+    ...authSaga
   ]);
 }
 

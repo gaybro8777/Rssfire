@@ -9,6 +9,11 @@
 // fork - to start another task
 // join - wait for another task which is done
 
+// name rule
+
+// function* name(){...}
+// function* watchName(){...}
+
 import { delay } from 'redux-saga';
 import { put, takeEvery, all } from 'redux-saga/effects';
 
@@ -24,14 +29,11 @@ function* hello() {
 
 // takeEvery includes while loop
 // so watcher should use takeEvery
-export function* watchHello() {
+function* watchHello() {
   console.log('watching dispath from sigin container');
   yield takeEvery(USER_TEST.PENDING, hello);
 }
 
-// export const authSaga = function* authSaga() {
-//   console.log('exec authSaga');
-//   yield [
-//     fork(watchHello)
-//   ]
-// }
+export const authSaga = [
+  watchHello()
+];
