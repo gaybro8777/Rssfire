@@ -5,6 +5,17 @@ import { Button } from 'react-native-elements';
 import { resetNavigation } from '../../utils/index';
 import { SignInButton, FullViewContainer } from '../../components/index';
 
+const styles = StyleSheet.create({
+  textInput: {
+    width: '100%',
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#fff',
+    alignItems: 'center',
+  },
+});
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +27,6 @@ class SignIn extends Component {
     };
   }
 
-  // Debug
-  navigateHome() {
-    const { navigation } = this.props;
-    resetNavigation('Home', navigation);
-  }
-
   funcTest() {
     console.log('exec funcTest()');
   }
@@ -31,12 +36,21 @@ class SignIn extends Component {
     isPendingTest: Boolean,
   };
 
+  componentWillMount() {
+    console.log('Exec componentWillMount');
+    this.props.testMethod();
+  }
+
+  componentDidMount() {
+    console.log('Exec componentDidMount');
+  }
+
   render() {
     const {
       isPendingTest,
     } = this.props;
 
-    console.log('isPendingTest:' + isPendingTest);
+    // console.log('isPendingTest:' + isPendingTest);
 
     // console.log('Props:' + JSON.stringify(this.props));
 
@@ -59,41 +73,23 @@ class SignIn extends Component {
             onPress={this.funcTest}
           />
           <TextInput
-            // style={}
+            style={styles.textInput}
             placeholder={"Email Address"}
             placeholderTextColor="#c8c8c8"
             onChangeText={(text) => this.setState({email: text})}
             value={this.state.email}
           />
           <TextInput
-            // style={}
+            style={styles.textInput}
             placeholder="Password"
             placeholderTextColor="#c8c8c8"
             onChangeText={(text) => this.setState({password: text})}
             secureTextEntry={true}
             value={this.state.password}
           />
-          <Button
-            // buttonStyle={}
-            // textStyle={}
-            containerViewStyle={{ width: '85%' }}
-            title="Sign in with E-mail"
-            // onPress={() => this.signInWithEmail() }
-            onPress={() => this.props.testMethod() }
-          />
-          <Button
-            // buttonStyle={}
-            // textStyle={}
-            containerViewStyle={{ width: '85%' }}
-            title="Debug to error page"
-            onPress={() => this.props.navigation.navigate('SignInError')}
-          />
-          <Button
-            // buttonStyle={}
-            // textStyle={}
-            containerViewStyle={{ width: '85%' }}
-            title="Debug to feed page"
-            onPress={() => this.navigateHome()}
+          <SignInButton
+            type="E-mail"
+            onPress={this.props.testMethod}
           />
         </KeyboardAvoidingView>
       </FullViewContainer>
