@@ -4,7 +4,7 @@
 import { USER_TEST, USER_SIGNIN_EMAIL, USER_SIGNUP_EMAIL } from './auth-type';
 
 const initialState = {
-  user = {},
+  user: {},
   isPendingTest: false,
   isPendingSignUpEmail: false,
   error: '',
