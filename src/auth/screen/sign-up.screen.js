@@ -41,29 +41,26 @@ class SignUp extends Component {
   props: {
     navigation: Object,
     user: Object,
-    isPendingSignUpEmail: Boolean,
+    isPendingSignUp: Boolean,
     error: String,
+    signUpWithGoogleByDispatch: Function,
+    signUpWithEmailByDispatch: Function,
   };
 
   componentWillMount() {
-    console.log('Exec componentWillMount');
+    // console.log('Exec componentWillMount');
   }
 
   componentDidMount() {
-    console.log('Exec componentDidMount');
+    // console.log('Exec componentDidMount');
   }
 
   render() {
     const {
       user,
-      isPendingSignUpEmail,
+      isPendingSignUp,
       error,
     } = this.props;
-
-    console.log('isPendingSignUpEmail:' + isPendingSignUpEmail);
-    console.log('error:' + error);
-
-    console.log('User:' + JSON.stringify(user));
 
     // console.log('Props:' + JSON.stringify(this.props));
 
@@ -83,7 +80,7 @@ class SignUp extends Component {
           />
           <SignUpButton
             type="Google"
-            onPress={this.funcTest}
+            onPress={this.props.signUpWithGoogleByDispatch}
           />
           <TextInput
             style={styles.textInput}
