@@ -5,7 +5,6 @@ import { USER_TEST, USER_SIGNIN_EMAIL, USER_SIGNUP_EMAIL } from './auth-type';
 
 const initialState = {
   user: {},
-  isPendingTest: false,
   isPendingSignUpEmail: false,
   error: '',
 };
@@ -13,22 +12,6 @@ const initialState = {
 export const authReducer = (state = initialState, action = {}) => {
   console.log('Exec auth Reducer:' + action.type);
   switch(action.type) {
-    case USER_TEST.PENDING:
-      return {
-        ...state,
-        isPendingTest: true,
-      };
-    case USER_TEST.SUCCESS:
-      return {
-        ...state,
-        isPendingTest: false,
-      };
-    case USER_TEST.ERROR:
-      return {
-        ...state,
-        error: 'Something went wrong!',
-        isPendingTest: false,
-      };
     case USER_SIGNUP_EMAIL.PENDING:
       return {
         ...state,
@@ -44,7 +27,7 @@ export const authReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isPendingSignUpEmail: false,
-        error: action.payload,
+        error: action.error,
       };
     default:
       return state;
