@@ -9,31 +9,27 @@ import { connect } from 'react-redux';
 import { SignUpScreen } from '../screen/sign-up.screen';
 
 // import type
-import { USER_TEST, USER_SIGNIN_EMAIL } from '../auth-type';
+import { USER_SIGNUP_EMAIL } from '../auth-type';
 
 // set state from reducer
 const mapStateToProps = state => ({
-  isPendingTest: state.auth.isPendingTest,
+  user: state.auth.user,
+  isPendingSignUpEmail: state.auth.isPendingSignUpEmail,
+  error: state.auth.error,
 });
 
 // set dispatch to saga
-const mapDispatchToProps = dispatch => ({
-  signInWithEmail: (email, password) => {
-    // dispatch({
-    //   type: USER_SIGNIN_EMAIL
-    // })
-
-    dispatch({
-      type: USER_SIGNIN_EMAIL.SUCCESS,
-      email,
-      password
-    })
-  },
-  testMethod: () => {
+const mapDispatchToProps = (dispatch, getState) => ({
+  testFunc: () => {
     console.log('exec testMethod to saga');
+    console.log(getState);
+  },
+  signUpWithEmailByDispatch: (email, password) => {
     dispatch({
-      type: USER_TEST.PENDING
-    })
+      type: USER_SIGNUP_EMAIL.PENDING,
+      email: email,
+      password: password
+    });
   }
 });
 

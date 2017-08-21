@@ -23,7 +23,6 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
-      loading: true,
       email: '',
       password: ''
     };
@@ -41,12 +40,13 @@ class SignUp extends Component {
 
   props: {
     navigation: Object,
-    isPendingTest: Boolean,
+    user: Object,
+    isPendingSignUpEmail: Boolean,
+    error: String,
   };
 
   componentWillMount() {
     console.log('Exec componentWillMount');
-    this.props.testMethod();
   }
 
   componentDidMount() {
@@ -55,10 +55,15 @@ class SignUp extends Component {
 
   render() {
     const {
-      isPendingTest,
+      user,
+      isPendingSignUpEmail,
+      error,
     } = this.props;
 
-    // console.log('isPendingTest:' + isPendingTest);
+    console.log('isPendingSignUpEmail:' + isPendingSignUpEmail);
+    console.log('error:' + error);
+
+    console.log('User:' + JSON.stringify(user));
 
     // console.log('Props:' + JSON.stringify(this.props));
 
@@ -97,7 +102,7 @@ class SignUp extends Component {
           />
           <SignUpButton
             type="E-mail"
-            onPress={this.props.testMethod}
+            onPress={() => this.props.signUpWithEmailByDispatch(this.state.email, this.state.password)}
           />
           <Button
             buttonStyle={styles.buttonStyle}
