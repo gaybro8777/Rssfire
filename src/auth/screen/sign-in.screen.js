@@ -7,9 +7,11 @@ import { SignInButton, FullViewContainer } from '../../components/index';
 
 const styles = StyleSheet.create({
   textInput: {
-    width: '100%',
+    width: '90%',
     paddingTop: 10,
     paddingBottom: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     borderBottomWidth: 1,
     borderColor: '#fff',
     alignItems: 'center',
@@ -57,7 +59,7 @@ class SignIn extends Component {
     return (
       <FullViewContainer>
         <KeyboardAvoidingView
-          // style={}
+          style={{width: '100%'}}
           behavior="padding"
         >
           <SignInButton
