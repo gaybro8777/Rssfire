@@ -15,25 +15,26 @@
 // function* watchName(){...}
 
 import { delay } from 'redux-saga';
-import { put, takeEvery, all } from 'redux-saga/effects';
+import { call, put, take, takeEvery, all } from 'redux-saga/effects';
+import firebase from '../config/firebase';
+import { USER_TEST, USER_SIGNUP_EMAIL } from './auth-type';
 
-import { USER_TEST, USER_SIGNIN_EMAIL } from './auth-type';
+firebase.init();
 
-function* hello() {
-  yield delay(1000);
-  console.log('Hello, Redux Saga');
-  yield put ({
-    type: USER_TEST.SUCCESS
-  })
+function* signUpWithEmail(action) {
+  try {
+    const payload = yield signUpWithEmailExec(action);
+    yield put({ type: USER_SIGNUP_EMAIL.SUCCESS, payload });
+  } catch(error) {
+    yield put({ type: USER_SIGNUP_EMAIL.ERROR, error: error.message });
+  }
 }
 
-// takeEvery includes while loop
-// so watcher should use takeEvery
-function* watchHello() {
-  console.log('watching dispath from sigin container');
-  yield takeEvery(USER_TEST.PENDING, hello);
+function* signUpWithEmailExec(action) {
+  const param = [action.email, action.password];
+  return yield call(firebase.signUpWithEmail, ...param);
 }
 
 export const authSaga = [
-  watchHello()
+  takeEvery(USER_SIGNUP_EMAIL.PENDING, signUpWithEmail)
 ];
