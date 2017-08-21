@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SignInButton = ({type, onPress}) => {
-    let title = 'Sign in with ';
+export const SignUpButton = ({type, onPress}) => {
+    let title = 'Sign up with ';
     let backgroundColor = '#f0ad4e';
     let textColor = '#fff';
 

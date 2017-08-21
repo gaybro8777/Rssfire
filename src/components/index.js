@@ -1,3 +1,3 @@
-export * from './feed-list-item';
-export * from './sign-in-button';
+export * from './login-button';
+export * from './sign-up-button';
 export * from './full-view-container';
