@@ -20,10 +20,6 @@ const mapStateToProps = state => ({
 
 // set dispatch to saga
 const mapDispatchToProps = (dispatch, getState) => ({
-  testFunc: () => {
-    console.log('exec testMethod to saga');
-    console.log(getState);
-  },
   signUpWithEmailByDispatch: (email, password) => {
     dispatch({
       type: USER_SIGNUP_EMAIL.PENDING,
