@@ -7,3 +7,8 @@ export const USER_SIGNUP_FACEBOOK = createActionType('USER_SIGNUP_FACEBOOK');
 export const USER_SIGNUP_TWITTER = createActionType('USER_SIGNUP_TWITTER');
 export const USER_SIGNUP_GOOGLE = createActionType('USER_SIGNUP_GOOGLE');
 export const USER_SIGNUP_EMAIL = createActionType('USER_SIGNUP_EMAIL');
+
+export const USER_LOGIN_FACEBOOK = createActionType('USER_LOGIN_FACEBOOK');
+export const USER_LOGIN_TWITTER = createActionType('USER_LOGIN_TWITTER');
+export const USER_LOGIN_GOOGLE = createActionType('USER_LOGIN_GOOGLE');
+export const USER_LOGIN_EMAIL = createActionType('USER_LOGIN_EMAIL');
