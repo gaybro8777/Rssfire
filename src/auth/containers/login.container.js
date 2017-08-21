@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // import view from screen directory
-import { SignInScreen } from '../screen/sign-in.screen';
+import { LoginScreen } from '../screen/login.screen';
 
 // import type
 import { USER_TEST, USER_SIGNIN_EMAIL } from '../auth-type';
@@ -37,4 +37,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export const SignInContainer = connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
+export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { resetNavigation } from '../../utils/index';
-import { SignInButton, FullViewContainer } from '../../components/index';
+import { SignUpButton, FullViewContainer } from '../../components/index';
 
 const styles = StyleSheet.create({
   textInput: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -31,6 +31,12 @@ class SignIn extends Component {
 
   funcTest() {
     console.log('exec funcTest()');
+  }
+
+  // Debug
+  moveToLogin() {
+    const { navigation } = this.props;
+    navigation.navigate('Login');
   }
 
   props: {
@@ -62,15 +68,15 @@ class SignIn extends Component {
           style={{width: '100%'}}
           behavior="padding"
         >
-          <SignInButton
+          <SignUpButton
             type="Facebook"
             onPress={this.props.testMethod}
           />
-          <SignInButton
+          <SignUpButton
             type="Twitter"
             onPress={this.funcTest}
           />
-          <SignInButton
+          <SignUpButton
             type="Google"
             onPress={this.funcTest}
           />
@@ -89,9 +95,15 @@ class SignIn extends Component {
             secureTextEntry={true}
             value={this.state.password}
           />
-          <SignInButton
+          <SignUpButton
             type="E-mail"
             onPress={this.props.testMethod}
+          />
+          <Button
+            buttonStyle={styles.buttonStyle}
+            onPress={() => this.moveToLogin()}
+            fontSize={18}
+            title="Already have an account? Login"
           />
         </KeyboardAvoidingView>
       </FullViewContainer>
@@ -99,4 +111,4 @@ class SignIn extends Component {
   }
 }
 
-export const SignInScreen = SignIn;
+export const SignUpScreen = SignUp;
