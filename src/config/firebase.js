@@ -27,6 +27,11 @@ export default {
     return this._user;
   },
 
+  logout() {
+    console.log('Firebase: Logout');
+    return firebase.auth().signOut();
+  },
+
   signUpWithEmail(email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
   },
@@ -37,12 +42,19 @@ export default {
 
   signInWithGooglePopup() {
     // Can not use popup and get redirect
-    
+
     // return firebase.auth().getRedirectResult();
     // console.log('Create Google Provider');
     // const provider = new firebase.auth.GoogleAuthProvider();
+    // const user = firebase.auth().currentUser;
+
+    // const authCredential = .authCredential('google.com');
+    // console.log('user:', user.getIdToken());
+    // console.log('user', user);
+    // console.log(provider);
+    // provider.addScope('email');
     // const credential = provider.credential();
-    // // console.log('Provider:', provider);
+    // console.log('Provider:', provider);
     // console.log('Credential:', credential);
     // return firebase.auth().signInWithPopup(provider);
   },
