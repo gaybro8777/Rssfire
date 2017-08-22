@@ -28,44 +28,44 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      loading: true,
+      loading: false,
       email: '',
       password: ''
     };
   }
 
-  funcTest() {
-    console.log('exec funcTest()');
-  }
-
   // Debug
-  moveToSignUp() {
+  _moveToSignUp = () => {
     const { navigation } = this.props;
     navigation.navigate('SignUp');
   }
 
   props: {
     navigation: Object,
-    isPendingTest: Boolean,
+    user: Object,
+    isPendingLogin: Boolean,
+    isPendingLogout: Boolean,
+    error: String,
+    loginWithEmailByDispatch: Function,
+    logoutByDispatch: Function,
   };
 
   componentWillMount() {
-    console.log('Exec componentWillMount');
-    this.props.testMethod();
+    // console.log('Exec componentWillMount');
   }
 
   componentDidMount() {
-    console.log('Exec componentDidMount');
+    // console.log('Exec componentDidMount');
   }
 
   render() {
     const {
-      isPendingTest,
+      user,
+      isPendingLogin,
+      isPendingLogout,
     } = this.props;
 
-    // console.log('isPendingTest:' + isPendingTest);
-
-    // console.log('Props:' + JSON.stringify(this.props));
+    // console.log('Props:' + JSON.stringify(user));
 
     return (
       <FullViewContainer>
@@ -75,15 +75,15 @@ class Login extends Component {
         >
           <LoginButton
             type="Facebook"
-            onPress={this.props.testMethod}
+            // onPress={}
           />
           <LoginButton
             type="Twitter"
-            onPress={this.funcTest}
+            // onPress={}
           />
           <LoginButton
             type="Google"
-            onPress={this.funcTest}
+            // onPress={}
           />
           <TextInput
             style={styles.textInput}
@@ -102,11 +102,11 @@ class Login extends Component {
           />
           <LoginButton
             type="E-mail"
-            onPress={this.props.testMethod}
+            onPress={() => this.props.loginWithEmailByDispatch(this.state.email, this.state.password)}
           />
           <Button
             buttonStyle={styles.buttonStyle}
-            onPress={() => this.moveToSignUp()}
+            onPress={this._moveToSignUp}
             fontSize={18}
             title="Don't have an account? Sign up"
           />
