@@ -27,11 +27,12 @@ const mapStateToProps = state => ({
 
 // set dispatch to saga
 const mapDispatchToProps = dispatch => ({
-  loginWithEmailByDispatch: (email, password) => {
+  loginWithEmailByDispatch: (email, password, navigation) => {
     dispatch({
       type: USER_LOGIN_EMAIL.PENDING,
       email,
-      password
+      password,
+      navigation
     })
   },
   logoutByDispatch: () => {

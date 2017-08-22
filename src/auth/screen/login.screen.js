@@ -37,7 +37,8 @@ class Login extends Component {
   // Debug
   _moveToSignUp = () => {
     const { navigation } = this.props;
-    navigation.navigate('SignUp');
+    // navigation.navigate('SignUp');
+    resetNavigation('SignUp', navigation);
   }
 
   props: {
@@ -60,6 +61,7 @@ class Login extends Component {
 
   render() {
     const {
+      navigation,
       user,
       isPendingLogin,
       isPendingLogout,
@@ -106,7 +108,7 @@ class Login extends Component {
           />
           <LoginButton
             type="E-mail"
-            onPress={() => this.props.loginWithEmailByDispatch(this.state.email, this.state.password)}
+            onPress={() => this.props.loginWithEmailByDispatch(this.state.email, this.state.password, navigation)}
           />
           <Button
             buttonStyle={styles.buttonStyle}

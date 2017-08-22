@@ -17,6 +17,7 @@
 import { delay } from 'redux-saga';
 import { call, put, take, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
+import { resetNavigation } from '../utils/index';
 import {
   USER_SIGNUP_GOOGLE,
   USER_SIGNUP_EMAIL,
@@ -40,6 +41,8 @@ function* signUpWithEmail(action) {
     const payload = yield signUpWithEmailExec(action);
     firebase.user = payload;
     yield put({ type: USER_SIGNUP_EMAIL.SUCCESS, payload });
+
+    resetNavigation('Home', action.navigation);
   } catch(error) {
     yield put({ type: USER_SIGNUP_EMAIL.ERROR, error: error.message });
   }
@@ -50,6 +53,8 @@ function* loginWithEmail(action) {
     const payload = yield loginWithEmailExec(action);
     firebase.user = payload;
     yield put({ type: USER_LOGIN_EMAIL.SUCCESS, payload });
+
+    resetNavigation('Home', action.navigation);
   } catch(error) {
     yield put({ type: USER_LOGIN_EMAIL.ERROR, error: error.message });
   }
