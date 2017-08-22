@@ -8,8 +8,6 @@ import {
   USER_TOUCH_FEED_ITEM
 } from './feed-type';
 
-firebase.init();
-
 function* getDatabase() {
   try {
     const payload = yield getDatabaseExec();
