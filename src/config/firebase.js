@@ -19,8 +19,6 @@ export default {
       databaseURL: `https://${key.PROJECT_ID}.firebaseio.com`,
       storageBucket: `${key.PROJECT_ID}.appspot.com`,
     });
-
-    return firebase;
   },
 
   get user() {
