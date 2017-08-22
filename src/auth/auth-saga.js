@@ -17,9 +17,18 @@
 import { delay } from 'redux-saga';
 import { call, put, take, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
-import { USER_TEST, USER_SIGNUP_EMAIL } from './auth-type';
+import { USER_SIGNUP_GOOGLE, USER_SIGNUP_EMAIL } from './auth-type';
 
 firebase.init();
+
+function* signUpWithGoogle() {
+  try {
+    const payload = yield signUpWithGoogleExec();
+    yield put({ type: USER_SIGNUP_GOOGLE.SUCCESS, payload });
+  } catch(error) {
+    yield put({ type: USER_SIGNUP_GOOGLE.ERROR, error: error.message });
+  }
+}
 
 function* signUpWithEmail(action) {
   try {
@@ -30,11 +39,17 @@ function* signUpWithEmail(action) {
   }
 }
 
+// Exec
 function* signUpWithEmailExec(action) {
   const param = [action.email, action.password];
   return yield call(firebase.signUpWithEmail, ...param);
 }
 
+function* signUpWithGoogleExec() {
+  return yield call(firebase.signInWithGooglePopup);
+}
+
 export const authSaga = [
+  takeEvery(USER_SIGNUP_GOOGLE.PENDING, signUpWithGoogle),
   takeEvery(USER_SIGNUP_EMAIL.PENDING, signUpWithEmail)
 ];
