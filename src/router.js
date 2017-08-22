@@ -3,12 +3,18 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 import { LoginContainer, SignUpContainer } from './auth/index';
-import { FeedListScreen } from './feed/index';
+import { FeedListContainer, FeedWebviewContainer } from './feed/index';
 import { SubscribeScreen } from './subscribe/index';
 
 export const FeedStack = StackNavigator({
   Feed: {
-    screen: FeedListScreen,
+    screen: FeedListContainer,
+    navigationOptions: {
+      title: 'ALL',
+    },
+  },
+  Webview: {
+    screen: FeedWebviewContainer,
     navigationOptions: {
       title: 'ALL',
     },
