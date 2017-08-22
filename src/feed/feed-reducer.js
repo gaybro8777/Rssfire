@@ -19,18 +19,18 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_GET_DATABASE.PENDING:
       return {
         ...state,
-        sPendingGetDatabase: true,
+        isPendingGetDatabase: true,
       };
     case SYSTEM_GET_DATABASE.SUCCESS:
       return {
         ...state,
         database: action.payload,
-        sPendingGetDatabase: false,
+        isPendingGetDatabase: false,
       };
     case SYSTEM_GET_DATABASE.ERROR:
       return {
         ...state,
-        sPendingGetDatabase: false,
+        isPendingGetDatabase: false,
         error: action.error,
       };
     default:
