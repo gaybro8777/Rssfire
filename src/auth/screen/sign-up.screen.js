@@ -28,14 +28,11 @@ class SignUp extends Component {
     };
   }
 
-  funcTest() {
-    console.log('exec funcTest()');
-  }
-
   // Debug
-  moveToLogin() {
+  _moveToLogin = () => {
     const { navigation } = this.props;
-    navigation.navigate('Login');
+    // navigation.navigate('Login');
+    resetNavigation('Login', navigation);
   }
 
   props: {
@@ -75,15 +72,15 @@ class SignUp extends Component {
         >
           <SignUpButton
             type="Facebook"
-            onPress={this.props.testMethod}
+            // onPress={}
           />
           <SignUpButton
             type="Twitter"
-            onPress={this.funcTest}
+            // onPress={}
           />
           <SignUpButton
             type="Google"
-            onPress={this.props.signUpWithGoogleByDispatch}
+            // onPress={this.props.signUpWithGoogleByDispatch}
           />
           <TextInput
             style={styles.textInput}
@@ -106,7 +103,7 @@ class SignUp extends Component {
           />
           <Button
             buttonStyle={styles.buttonStyle}
-            onPress={() => this.moveToLogin()}
+            onPress={this._moveToLogin}
             fontSize={18}
             title="Already have an account? Login"
           />
