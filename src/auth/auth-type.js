@@ -12,3 +12,5 @@ export const USER_LOGIN_FACEBOOK = createActionType('USER_LOGIN_FACEBOOK');
 export const USER_LOGIN_TWITTER = createActionType('USER_LOGIN_TWITTER');
 export const USER_LOGIN_GOOGLE = createActionType('USER_LOGIN_GOOGLE');
 export const USER_LOGIN_EMAIL = createActionType('USER_LOGIN_EMAIL');
+
+export const USER_LOGOUT = createActionType('USER_LOGOUT');
