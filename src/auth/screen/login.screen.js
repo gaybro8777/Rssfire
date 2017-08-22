@@ -63,7 +63,11 @@ class Login extends Component {
       user,
       isPendingLogin,
       isPendingLogout,
+      error,
     } = this.props;
+
+    console.log('User:', user);
+    console.log('Error:', error);
 
     // console.log('Props:' + JSON.stringify(user));
 
