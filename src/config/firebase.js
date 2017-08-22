@@ -34,4 +34,16 @@ export default {
   signInWithEmail(email, password) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   },
+
+  signInWithGooglePopup() {
+    // Can not use popup and get redirect
+    
+    // return firebase.auth().getRedirectResult();
+    // console.log('Create Google Provider');
+    // const provider = new firebase.auth.GoogleAuthProvider();
+    // const credential = provider.credential();
+    // // console.log('Provider:', provider);
+    // console.log('Credential:', credential);
+    // return firebase.auth().signInWithPopup(provider);
+  },
 }
