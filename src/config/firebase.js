@@ -27,6 +27,14 @@ export default {
     return this._user;
   },
 
+  set user(user) {
+    this._user = user;
+  },
+
+  get currentUser() {
+    return firebase.auth().currentUser;
+  },
+
   // LOGIN
   loginWithEmail(email, password) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
