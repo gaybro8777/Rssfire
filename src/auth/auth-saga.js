@@ -38,6 +38,7 @@ function* signUpWithGoogle() {
 function* signUpWithEmail(action) {
   try {
     const payload = yield signUpWithEmailExec(action);
+    firebase.user = payload;
     yield put({ type: USER_SIGNUP_EMAIL.SUCCESS, payload });
   } catch(error) {
     yield put({ type: USER_SIGNUP_EMAIL.ERROR, error: error.message });
@@ -47,6 +48,7 @@ function* signUpWithEmail(action) {
 function* loginWithEmail(action) {
   try {
     const payload = yield loginWithEmailExec(action);
+    firebase.user = payload;
     yield put({ type: USER_LOGIN_EMAIL.SUCCESS, payload });
   } catch(error) {
     yield put({ type: USER_LOGIN_EMAIL.ERROR, error: error.message });
