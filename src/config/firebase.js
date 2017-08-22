@@ -27,17 +27,20 @@ export default {
     return this._user;
   },
 
+  // LOGIN
+  loginWithEmail(email, password) {
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+  },
+
+  // LOGOUT
   logout() {
     console.log('Firebase: Logout');
     return firebase.auth().signOut();
   },
 
+  // SIGN UP
   signUpWithEmail(email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
-  },
-
-  signInWithEmail(email, password) {
-    return firebase.auth().signInWithEmailAndPassword(email, password);
   },
 
   signInWithGooglePopup() {
