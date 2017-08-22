@@ -62,6 +62,9 @@ class SignUp extends Component {
       error,
     } = this.props;
 
+    console.log('User: ', JSON.stringify(user));
+    console.log('Error:', error);
+
     // console.log('Props:' + JSON.stringify(this.props));
 
     return (
