@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { FeedListScreen } from '../screen/feed-list.screen';
 
 import {
-  SYSTEM_GET_DATABASE,
+  SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
   USER_PULL_REFRESH,
   USER_TOUCH_FEED_ITEM
@@ -13,18 +13,27 @@ import {
 
 // set state from reducer
 const mapStateToProps = state => ({
-  database: state.feed.database,
-  feeds: state.feed.data,
-  isPendingGetDatabase: state.feed.isPendingGetDatabase,
+  user: state.auth.user,
+  snapshot: state.feed.snapshot,
+  feeds: state.feed.feeds,
+  categories: state.feed.categories,
+  isPendingGetSnapshot: state.feed.isPendingGetSnapshot,
   isPendingFetchFeeds: state.feed.isPendingFetchFeeds,
   error: '',
 });
 
 // set dispatch to saga
 const mapDispatchToProps = dispatch => ({
-  getDatabaseByDispatch: () => {
+  getSnapshotByDispatch: userId => {
     dispatch({
-      type: SYSTEM_GET_DATABASE.PENDING
+      type: SYSTEM_GET_SNAPSHOT.PENDING,
+      userId
+    })
+  },
+  getFeedsByDispatch: feeds => {
+    dispatch({
+      type: SYSTEM_GET_FEEDS.PENDING,
+      feeds
     })
   },
 });
