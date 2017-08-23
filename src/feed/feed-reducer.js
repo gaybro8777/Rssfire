@@ -37,6 +37,23 @@ export const feedReducer = (state = initialState, action = {}) => {
         isPendingGetSnapshot: false,
         error: action.error,
       };
+    case SYSTEM_GET_FEEDS.PENDING:
+      return {
+        ...state,
+        isPendingFetchFeeds: true,
+      };
+    case SYSTEM_GET_FEEDS.SUCCESS:
+      return {
+        ...state,
+        feeds: action.payload,
+        isPendingFetchFeeds: false,
+      };
+    case SYSTEM_GET_FEEDS.ERROR:
+      return {
+        ...state,
+        isPendingFetchFeeds: false,
+        error: action.error,
+      };
     default:
       return state;
   }
