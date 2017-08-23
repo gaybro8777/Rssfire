@@ -1,14 +1,15 @@
 import {
-  SYSTEM_GET_DATABASE,
+  SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
   USER_PULL_REFRESH,
   USER_TOUCH_FEED_ITEM
 } from './feed-type';
 
 const initialState = {
-  database: {},
+  snapshot: {},
   feeds: {},
-  isPendingGetDatabase: false,
+  categories: {},
+  isPendingGetSnapshot: false,
   isPendingFetchFeeds: false,
   error: '',
 };
@@ -16,21 +17,23 @@ const initialState = {
 export const feedReducer = (state = initialState, action = {}) => {
   console.log('Exec feed Reducer:' + action.type);
   switch(action.type) {
-    case SYSTEM_GET_DATABASE.PENDING:
+    case SYSTEM_GET_SNAPSHOT.PENDING:
       return {
         ...state,
-        isPendingGetDatabase: true,
+        isPendingGetSnapshot: true,
       };
-    case SYSTEM_GET_DATABASE.SUCCESS:
+    case SYSTEM_GET_SNAPSHOT.SUCCESS:
       return {
         ...state,
-        database: action.payload,
-        isPendingGetDatabase: false,
+        snapshot: action.payload,
+        feeds: action.payload.feeds,
+        categories: action.payload.categories,
+        isPendingGetSnapshot: false,
       };
-    case SYSTEM_GET_DATABASE.ERROR:
+    case SYSTEM_GET_SNAPSHOT.ERROR:
       return {
         ...state,
-        isPendingGetDatabase: false,
+        isPendingGetSnapshot: false,
         error: action.error,
       };
     default:
