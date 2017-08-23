@@ -9,6 +9,7 @@ const initialState = {
   snapshot: {},
   feeds: {},
   categories: {},
+  hasFeedsInSnapshot: false,
   isPendingGetSnapshot: false,
   isPendingFetchFeeds: false,
   error: '',
@@ -26,7 +27,7 @@ export const feedReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         snapshot: action.payload,
-        feeds: action.payload.feeds,
+        hasFeedsInSnapshot: action.hasFeedsInSnapshot,
         categories: action.payload.categories,
         isPendingGetSnapshot: false,
       };
