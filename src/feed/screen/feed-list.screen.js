@@ -29,22 +29,47 @@ class FeedList extends Component {
 
   props: {
     navigation: Object,
-    database: Object,
+    user: Object,
+    snapshot: Object,
     feeds: Object,
+    isPendingGetSnapshot: Boolean,
     isPendingFetchFeeds: Boolean,
     error: String,
-    getDatabaseByDispatch: Function,
+    getSnapshotByDispatch: Function,
   };
 
   componentWillMount() {
-    // this.props.getDatabaseByDispatch;
+    // const { user } = this.props;
+    // pre-fetch data from firebase
+    this.props.getSnapshotByDispatch('testuser');
   }
 
   componentDidMount() {
-    // console.log('Exec componentDidMount');
   }
 
   render() {
+    const {
+      navigation,
+      user,
+      snapshot,
+      feeds,
+      isPendingFetchFeeds,
+      error,
+    } = this.props;
+
+    console.log('Snapshot', snapshot);
+    console.log('Feeds', feeds);
+    // no data -> undefined
+    console.log('Error:', error);
+
+    // TODO
+    // if feeds have no data, this view will be shown ADD RSS something.
+    // others, call to fetch feeds dispatch
+
+    // TODO
+    // feeds include rss data object
+    //
+
     return (
       <View>
       <Button
