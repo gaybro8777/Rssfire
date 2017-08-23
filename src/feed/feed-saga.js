@@ -12,11 +12,13 @@ function* getSnapshot(action) {
   try {
     const payload = yield getSnapshotExec(action);
     if(payload) {
-      console.log('Saga feeds:', payload.val().feeds);
-      console.log('Saga cats:', payload.val().categories);
+      // console.log('Saga feeds:', payload.val().feeds);
+      // console.log('Saga cats:', payload.val().categories);
+
+      const hasFeedsInSnapshot = payload.hasChild('feeds');
 
       // Success get database from firebase
-      yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload: payload.val() });
+      yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload: payload.val(), hasFeedsInSnapshot });
 
       // then, call to divid feeds and categories
     } else {
