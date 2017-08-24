@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Image, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Image, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
 import { FeedListItem } from '../../components/index';
@@ -32,6 +32,7 @@ class FeedList extends Component {
     user: Object,
     snapshot: Object,
     feeds: Object,
+    hasFeedsInSnapshot: Boolean,
     isPendingGetSnapshot: Boolean,
     isPendingFetchFeeds: Boolean,
     error: String,
@@ -45,6 +46,7 @@ class FeedList extends Component {
   }
 
   componentDidMount() {
+    console.log('did mount');
   }
 
   render() {
@@ -53,13 +55,15 @@ class FeedList extends Component {
       user,
       snapshot,
       feeds,
+      hasFeedsInSnapshot,
+      isPendingGetSnapshot,
       isPendingFetchFeeds,
       error,
     } = this.props;
 
-    console.log('Snapshot', snapshot);
-    console.log('Feeds', feeds);
-    // no data -> undefined
+    // console.log('Snapshot', snapshot);
+    // console.log('Has feeds', hasFeedsInSnapshot);
+    // console.log('Feeds', feeds);
     console.log('Error:', error);
 
     // TODO
@@ -69,6 +73,53 @@ class FeedList extends Component {
     // TODO
     // feeds include rss data object
     //
+
+    // isPendingGetSnapshot == true
+    // loading View
+
+    if(isPendingGetSnapshot) {
+      console.log('Loding isPendingGetSnapshot');
+      // return loading view
+
+      return (
+        <View>
+          <ActivityIndicator/>
+        </View>
+      );
+    }
+
+    // hasFeedsInSnapshot == true
+    // call fetch feeds
+
+    if(hasFeedsInSnapshot && !isPendingFetchFeeds) {
+      // hasFeed true & is not fetching
+      console.log('Has Feed List call get feed');
+      // call get feed
+      console.log('Feeds', snapshot.feeds);
+    }
+
+    // false
+    // show add feed view
+
+    if(!hasFeedsInSnapshot) {
+      // return add feed
+    }
+
+    // isPendingFetchFeeds == true
+    // loading view
+
+    if(isPendingFetchFeeds) {
+      console.log('Loding isPendingFetchFeeds');
+      // return loading view
+      return (
+        <View>
+          <ActivityIndicator/>
+        </View>
+      );
+    }
+
+    // false
+    // show feeds list
 
     return (
       <View>
