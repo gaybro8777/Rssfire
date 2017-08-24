@@ -1,6 +1,7 @@
 import { delay } from 'redux-saga';
-import { call, put, take, takeEvery, all } from 'redux-saga/effects';
+import { select, call, put, take, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
+import { fetchHelper } from '../utils/index';
 import {
   SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
@@ -9,6 +10,7 @@ import {
 } from './feed-type';
 
 function* getSnapshot(action) {
+  console.log('Action', action);
   try {
     const payload = yield getSnapshotExec(action);
     if(payload) {
@@ -20,7 +22,11 @@ function* getSnapshot(action) {
       // Success get database from firebase
       yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload: payload.val(), hasFeedsInSnapshot });
 
-      // then, call to divid feeds and categories
+      if(hasFeedsInSnapshot) {
+        // put get feed
+        yield put({ type: SYSTEM_GET_FEEDS.PENDING, feeds: payload.val().feeds });
+      }
+
     } else {
       yield put({ type: SYSTEM_GET_SNAPSHOT.ERROR, error: 'There\'s no data.' });
     }
@@ -29,11 +35,35 @@ function* getSnapshot(action) {
   }
 }
 
+function* getFeed(action) {
+  // console.log('Action:', action);
+  // {type: "SYSTEM_GET_FEEDS_PENDING", feeds: {...}, @@redux-saga/SAGA_ACTION: true}
+
+  const result = yield getFeedExec(action.feeds);
+  console.log(result);
+  // [
+  //   {payload: "..."},
+  //   {payload: "..."},
+  //   {error: "..."}
+  // ]
+  // need to check
+}
+
 // Exec
 function* getSnapshotExec(action) {
   return yield call(firebase.getSnapshot, action.userId);
 }
 
+function* getFeedExec(feeds) {
+  return yield all(
+    Object.keys(feeds).map(key => {
+      let url = feeds[key]['url'];
+       return call(fetchHelper, url);
+    })
+  );
+}
+
 export const feedSaga = [
-  takeEvery(SYSTEM_GET_SNAPSHOT.PENDING, getSnapshot)
+  takeEvery(SYSTEM_GET_SNAPSHOT.PENDING, getSnapshot),
+  takeEvery(SYSTEM_GET_FEEDS.PENDING, getFeed)
 ];
