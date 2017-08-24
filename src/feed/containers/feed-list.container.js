@@ -31,12 +31,6 @@ const mapDispatchToProps = dispatch => ({
       userId
     })
   },
-  getFeedsByDispatch: feeds => {
-    dispatch({
-      type: SYSTEM_GET_FEEDS.PENDING,
-      feeds
-    })
-  },
 });
 
 export const FeedListContainer = connect(mapStateToProps, mapDispatchToProps)(FeedListScreen);
