@@ -1,7 +1,7 @@
 import { delay } from 'redux-saga';
 import { select, call, put, take, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
-import { fetchHelper } from '../utils/index';
+import { fetchHelper, xmlParser } from '../utils/index';
 import {
   SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
@@ -39,14 +39,30 @@ function* getFeed(action) {
   // console.log('Action:', action);
   // {type: "SYSTEM_GET_FEEDS_PENDING", feeds: {...}, @@redux-saga/SAGA_ACTION: true}
 
-  const result = yield getFeedExec(action.feeds);
-  console.log(result);
+  const xmlRequest = yield call(getFeedExec, action.feeds);
+  // console.log(xmlRequest);
+
   // [
   //   {payload: "..."},
   //   {payload: "..."},
   //   {error: "..."}
   // ]
-  // need to check
+
+  const result = yield all(
+    xmlRequest.map(val => {
+      if(val.payload) {
+        return call(xmlParser, val.payload);
+      } else {
+        return null;
+      }
+    })
+  );
+
+  console.log('Result:', result);
+  yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: result });
+
+  // TODO
+  // error handling
 }
 
 // Exec
