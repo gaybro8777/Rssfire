@@ -2,7 +2,7 @@ import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import { LoginContainer, SignUpContainer } from './auth/index';
+import { SplashContainer, LoginContainer, SignUpContainer } from './auth/index';
 import { FeedListContainer, FeedWebviewContainer } from './feed/index';
 import { SubscribeScreen } from './subscribe/index';
 
@@ -51,6 +51,12 @@ export const FeedStack = StackNavigator({
 //   });
 //
 export const Root = StackNavigator({
+  Splash: {
+    screen: SplashContainer,
+    navigationOptions: {
+      header: null,
+    },
+  },
   SignUp: {
     screen: SignUpContainer,
     navigationOptions: {
