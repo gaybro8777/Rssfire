@@ -2,6 +2,7 @@
 
 // import type
 import {
+  SYSTEM_AUTH_USER,
   USER_SIGNUP_GOOGLE,
   USER_SIGNUP_EMAIL,
   USER_LOGIN_EMAIL,
@@ -9,7 +10,9 @@ import {
 } from './auth-type';
 
 const initialState = {
+  uid: '',
   user: {},
+  isAuthenticated: false,
   isPendingSignUp: false,
   isPendingLogin: false,
   isPendingLogout: false,
@@ -19,6 +22,20 @@ const initialState = {
 export const authReducer = (state = initialState, action = {}) => {
   console.log('Exec auth Reducer:' + action.type);
   switch(action.type) {
+    case SYSTEM_AUTH_USER.PENDING:
+
+    case SYSTEM_AUTH_USER.SUCCESS:
+      return {
+        ...state,
+        uid: action.payload,
+        isAuthenticated: true,
+      };
+    case SYSTEM_AUTH_USER.ERROR:
+      return {
+        ...state,
+        isAuthenticated: false,
+        error: action.error,
+      };
     case USER_SIGNUP_GOOGLE.PENDING:
       return {
         ...state,
