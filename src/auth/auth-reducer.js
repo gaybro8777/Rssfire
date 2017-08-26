@@ -62,6 +62,7 @@ export const authReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         user: action.payload,
+        uid: action.uid,
         isPendingSignUp: false,
       };
     case USER_SIGNUP_EMAIL.ERROR:
@@ -79,12 +80,14 @@ export const authReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         user: action.payload,
+        uid: action.uid,
         isPendingLogin: false,
       };
     case USER_LOGIN_EMAIL.ERROR:
       return {
         ...state,
         isPendingLogin: false,
+        uid: '',
         error: action.error,
       };
     case USER_LOGOUT.PENDING:

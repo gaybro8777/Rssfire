@@ -74,7 +74,7 @@ function* signUpWithEmail(action) {
 
     yield setUpInitRecordExec(firebase.user.uid);
     yield setUserIdToStorageExec(firebase.user.uid);
-    yield put({ type: USER_SIGNUP_EMAIL.SUCCESS, payload });
+    yield put({ type: USER_SIGNUP_EMAIL.SUCCESS, payload, uid: firebase.user.uid });
 
     resetNavigation('Home', action.navigation);
   } catch(error) {
@@ -86,7 +86,8 @@ function* loginWithEmail(action) {
   try {
     const payload = yield loginWithEmailExec(action);
     firebase.user = payload;
-    yield put({ type: USER_LOGIN_EMAIL.SUCCESS, payload });
+    yield setUserIdToStorageExec(firebase.user.uid);
+    yield put({ type: USER_LOGIN_EMAIL.SUCCESS, payload, uid: firebase.user.uid });
 
     resetNavigation('Home', action.navigation);
   } catch(error) {
