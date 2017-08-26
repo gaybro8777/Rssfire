@@ -29,7 +29,7 @@ class FeedList extends Component {
 
   props: {
     navigation: Object,
-    user: Object,
+    uid: String,
     snapshot: Object,
     feeds: Object,
     hasFeedsInSnapshot: Boolean,
@@ -40,9 +40,9 @@ class FeedList extends Component {
   };
 
   componentWillMount() {
-    // const { user } = this.props;
+    const { uid } = this.props;
     // pre-fetch data from firebase
-    this.props.getSnapshotByDispatch('testuser');
+    this.props.getSnapshotByDispatch(uid);
   }
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class FeedList extends Component {
   render() {
     const {
       navigation,
-      user,
+      uid,
       snapshot,
       feeds,
       hasFeedsInSnapshot,
@@ -103,6 +103,7 @@ class FeedList extends Component {
 
     if(!hasFeedsInSnapshot) {
       // return add feed
+      console.log('no feeds');
     }
 
     // isPendingFetchFeeds == true

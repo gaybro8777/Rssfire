@@ -13,7 +13,7 @@ import {
 
 // set state from reducer
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  uid: state.auth.uid,
   snapshot: state.feed.snapshot,
   feeds: state.feed.feeds,
   categories: state.feed.categories,
