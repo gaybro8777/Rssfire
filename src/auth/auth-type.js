@@ -1,6 +1,7 @@
 import { createActionType } from '../utils/index';
 
-export const USER_TEST = createActionType('USER_TEST');
+export const SYSTEM_AUTH_USER = createActionType('SYSTEM_AUTH_USER');
+
 export const USER_SIGNIN_EMAIL = createActionType('USER_SIGNIN_EMAIL');
 
 export const USER_SIGNUP_FACEBOOK = createActionType('USER_SIGNUP_FACEBOOK');
