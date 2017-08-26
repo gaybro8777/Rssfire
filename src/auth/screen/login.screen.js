@@ -68,8 +68,8 @@ class Login extends Component {
       error,
     } = this.props;
 
-    console.log('User:', user);
-    console.log('Error:', error);
+    // console.log('User:', user.uid);
+    // console.log('Error:', error);
 
     // console.log('Props:' + JSON.stringify(user));
 
