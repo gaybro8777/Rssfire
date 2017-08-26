@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, ScrollView, Image, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
-import { FeedListItem } from '../../components/index';
+import { FeedListItem, NoFeedNotification } from '../../components/index';
 
 class FeedList extends Component {
   constructor(props) {
@@ -102,8 +102,9 @@ class FeedList extends Component {
     // show add feed view
 
     if(!hasFeedsInSnapshot) {
-      // return add feed
-      console.log('no feeds');
+      return <NoFeedNotification
+        onPress={() => console.log('Move to subscribe view')}
+      />
     }
 
     // isPendingFetchFeeds == true
