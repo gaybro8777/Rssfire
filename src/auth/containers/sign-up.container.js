@@ -25,11 +25,12 @@ const mapDispatchToProps = (dispatch, getState) => ({
       type: USER_SIGNUP_GOOGLE.PENDING
     });
   },
-  signUpWithEmailByDispatch: (email, password) => {
+  signUpWithEmailByDispatch: (email, password, navigation) => {
     dispatch({
       type: USER_SIGNUP_EMAIL.PENDING,
-      email: email,
-      password: password
+      email,
+      password,
+      navigation
     });
   },
 });
