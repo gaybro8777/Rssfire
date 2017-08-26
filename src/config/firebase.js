@@ -29,8 +29,8 @@ export default {
     this._user = user;
   },
 
-  get currentUser() {
-    return firebase.auth().currentUser;
+  get db() {
+    return firebase.database();
   },
 
   // LOGIN
@@ -66,5 +66,22 @@ export default {
     // console.log('Provider:', provider);
     // console.log('Credential:', credential);
     // return firebase.auth().signInWithPopup(provider);
+  },
+
+  getSnapshot(userId) {
+    return firebase.database().ref(`users/${userId}`).once('value');
+  },
+
+  // default database
+  setDefaultRecord(userId) {
+    const ref = firebase.database().ref();
+
+    return ref.child(`users/${userId}`).set({
+      categories: {
+        1: {
+          name: 'ALL',
+        },
+      },
+    });
   },
 }
