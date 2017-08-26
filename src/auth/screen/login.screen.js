@@ -43,7 +43,7 @@ class Login extends Component {
 
   props: {
     navigation: Object,
-    user: Object,
+    uid: String,
     isPendingLogin: Boolean,
     isPendingLogout: Boolean,
     error: String,
@@ -62,12 +62,13 @@ class Login extends Component {
   render() {
     const {
       navigation,
-      user,
+      uid,
       isPendingLogin,
       isPendingLogout,
       error,
     } = this.props;
 
+    console.log('UID:', uid);
     // console.log('User:', user.uid);
     // console.log('Error:', error);
 

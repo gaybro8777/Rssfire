@@ -13,6 +13,7 @@ import { USER_SIGNUP_GOOGLE, USER_SIGNUP_EMAIL } from '../auth-type';
 
 // set state from reducer
 const mapStateToProps = state => ({
+  uid: state.auth.uid,
   user: state.auth.user,
   isPendingSignUp: state.auth.isPendingSignUp,
   error: state.auth.error,

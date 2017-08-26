@@ -19,7 +19,7 @@ import {
 
 // set state from reducer
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  uid: state.auth.uid,
   isPendingLogin: state.auth.isPendingLogin,
   isPendingLogout: state.auth.isPendingLogout,
   error: state.auth.error,

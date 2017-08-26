@@ -37,6 +37,7 @@ class SignUp extends Component {
 
   props: {
     navigation: Object,
+    uid: String,
     user: Object,
     isPendingSignUp: Boolean,
     error: String,
@@ -55,13 +56,15 @@ class SignUp extends Component {
   render() {
     const {
       navigation,
+      uid,
       user,
       isPendingSignUp,
       error,
     } = this.props;
 
-    console.log('User: ', JSON.stringify(user));
-    console.log('Error:', error);
+    console.log('UID:', uid);
+    // console.log('User: ', JSON.stringify(user));
+    // console.log('Error:', error);
 
     // console.log('Props:' + JSON.stringify(this.props));
 
