@@ -5,11 +5,8 @@ import { Button } from 'react-native-elements';
 const styles = StyleSheet.create({
   fullViewContainer: {
     flex: 1,
-    // flexDirection: 'column',
-    flexDirection: 'row',
-    // justifyContent: 'flex-start',
+    flexDirection: 'column',
     justifyContent: 'center',
-    // alignItems: 'stretch',
     alignItems: 'center',
   },
   buttonStyle: {
@@ -19,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 export const NoFeedNotification = ({onPress}) =>
-  <View>
+  <View style={styles.fullViewContainer}>
     <Text>There is no feed.</Text>
     <Button
       buttonStyle={styles.buttonStyle}
