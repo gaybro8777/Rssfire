@@ -54,6 +54,7 @@ class SignUp extends Component {
 
   render() {
     const {
+      navigation,
       user,
       isPendingSignUp,
       error,
@@ -99,7 +100,7 @@ class SignUp extends Component {
           />
           <SignUpButton
             type="E-mail"
-            onPress={() => this.props.signUpWithEmailByDispatch(this.state.email, this.state.password)}
+            onPress={() => this.props.signUpWithEmailByDispatch(this.state.email, this.state.password, navigation)}
           />
           <Button
             buttonStyle={styles.buttonStyle}
