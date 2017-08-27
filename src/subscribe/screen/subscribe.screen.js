@@ -13,7 +13,19 @@ class Subscribe extends Component {
     };
   }
 
+  props: {
+    navigation: Object,
+    isPendingWriteFirebase: Boolean,
+    error: String,
+  };
+
   render() {
+    const {
+      navigation,
+      isPendingWriteFirebase,
+      error,
+    } = this.props;
+
     return (
       <KeyboardAvoidingView
         // style={}
