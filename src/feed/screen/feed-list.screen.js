@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, ScrollView, Image, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
-import { FeedListItem, NoFeedNotification } from '../../components/index';
+import { NoFeedNotification } from '../../components/index';
 
 class FeedList extends Component {
   constructor(props) {
@@ -25,6 +25,11 @@ class FeedList extends Component {
   _moveToWebView = () => {
     const { navigation } = this.props;
     navigation.navigate('Repository');
+  }
+
+  _moveToSubscribeView = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Subscribe');
   }
 
   props: {
@@ -103,7 +108,7 @@ class FeedList extends Component {
 
     if(!hasFeedsInSnapshot) {
       return <NoFeedNotification
-        onPress={() => console.log('Move to subscribe view')}
+        onPress={this._moveToSubscribeView}
       />
     }
 
