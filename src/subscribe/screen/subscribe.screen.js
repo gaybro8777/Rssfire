@@ -28,7 +28,7 @@ class Subscribe extends Component {
 
     return (
       <KeyboardAvoidingView
-        // style={}
+        style={{width: '100%'}}
         behavior="padding"
       >
         <TextInput
