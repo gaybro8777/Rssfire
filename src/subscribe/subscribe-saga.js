@@ -7,6 +7,7 @@ import {
 
 function* setFeedToFirebase(action) {
   try {
+    yield setFeedToFirebaseExec();
     yield put({ type: USER_TOUCH_ADD_FEED.SUCCESS });
   } catch(error) {
     yield put({ type: USER_TOUCH_ADD_FEED.ERROR, error: error.message });
