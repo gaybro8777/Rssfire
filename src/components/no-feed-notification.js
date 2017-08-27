@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   fullViewContainer: {
@@ -16,13 +17,15 @@ const styles = StyleSheet.create({
 });
 
 export const NoFeedNotification = ({onPress}) =>
-  <View style={styles.fullViewContainer}>
-    <Text>There is no feed.</Text>
-    <Button
-      buttonStyle={styles.buttonStyle}
-      onPress={onPress}
-      fontSize={18}
-      underlayColor="transparent"
-      title="ADD FEED"
-    />
-  </View>;
+  <LinearGradient colors={['#2980b9', '#2c3e50']} style={styles.fullViewContainer}>
+    <View>
+      <Text>There is no feed.</Text>
+      <Button
+        buttonStyle={styles.buttonStyle}
+        onPress={onPress}
+        fontSize={18}
+        underlayColor="transparent"
+        title="ADD FEED"
+      />
+    </View>
+  </LinearGradient>;
