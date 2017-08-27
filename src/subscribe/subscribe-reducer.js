@@ -1,4 +1,4 @@
-import { USER_TOUCH_ADD_FEED } from '../subscribe-type';
+import { USER_TOUCH_ADD_FEED } from './subscribe-type';
 
 const initialState = {
   isPendingWriteFirebase: false,
