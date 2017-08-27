@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import { SplashContainer, LoginContainer, SignUpContainer } from './auth/index';
 import { FeedListContainer, FeedWebviewContainer } from './feed/index';
-import { SubscribeScreen } from './subscribe/index';
+import { SubscribeContainer } from './subscribe/index';
 
 export const FeedStack = StackNavigator({
   Feed: {
@@ -20,7 +20,7 @@ export const FeedStack = StackNavigator({
     },
   },
   Subscribe: {
-    screen: SubscribeScreen,
+    screen: SubscribeContainer,
     navigationOptions: {
       title: 'ADD',
     },
