@@ -15,10 +15,12 @@ const mapStateToProps = state => ({
 // TODO
 // implement to dispatch action
 const mapDispatchToProps = dispatch => ({
-  getSnapshotByDispatch: userId => {
+  setFeedByDispatch: (title, url, category) => {
     dispatch({
-      type: SYSTEM_GET_SNAPSHOT.PENDING,
-      userId
+      type: USER_TOUCH_ADD_FEED.PENDING,
+      title,
+      url,
+      category
     })
   },
 });
