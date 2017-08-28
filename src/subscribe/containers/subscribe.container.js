@@ -8,6 +8,7 @@ import { USER_TOUCH_ADD_FEED } from '../subscribe-type';
 
 // set state from reducer
 const mapStateToProps = state => ({
+  uid: state.auth.uid,
   isPendingWriteFirebase: state.subscribe.isPendingWriteFirebase,
   error: '',
 });
@@ -15,9 +16,10 @@ const mapStateToProps = state => ({
 // TODO
 // implement to dispatch action
 const mapDispatchToProps = dispatch => ({
-  setFeedByDispatch: (title, url, category) => {
+  setFeedByDispatch: (uid, title, url, category) => {
     dispatch({
       type: USER_TOUCH_ADD_FEED.PENDING,
+      uid,
       title,
       url,
       category

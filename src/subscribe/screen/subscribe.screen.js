@@ -36,6 +36,7 @@ class Subscribe extends Component {
 
   props: {
     navigation: Object,
+    uid: String,
     isPendingWriteFirebase: Boolean,
     error: String,
     setFeedByDispatch: Function,
@@ -44,6 +45,7 @@ class Subscribe extends Component {
   render() {
     const {
       navigation,
+      uid,
       isPendingWriteFirebase,
       error,
     } = this.props;
@@ -80,7 +82,7 @@ class Subscribe extends Component {
           containerViewStyle={{ width: '90%' }}
           title="ADD FEED"
           onPress={
-            () => this.props.setFeedByDispatch(this.state.title, this.state.url, this.state.category)
+            () => this.props.setFeedByDispatch(uid, this.state.title, this.state.url, this.state.category)
           }
         />
       </KeyboardAvoidingView>
