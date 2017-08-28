@@ -5,9 +5,16 @@ import {
   USER_TOUCH_ADD_FEED
 } from './subscribe-type';
 
-function* setFeedToFirebase(action) {
+function* pushFeedToFirebase(action) {
   try {
-    yield setFeedToFirebaseExec();
+    const feedObj = {
+      title: action.title,
+      url: action.url,
+      subscribed: Date.now(),
+    }
+
+    const result = yield pushFeedToFirebaseExec(action.uid, feedObj);
+
     yield put({ type: USER_TOUCH_ADD_FEED.SUCCESS });
   } catch(error) {
     yield put({ type: USER_TOUCH_ADD_FEED.ERROR, error: error.message });
@@ -16,11 +23,11 @@ function* setFeedToFirebase(action) {
 
 
 // Exec
-function* setFeedToFirebaseExec(action) {
-  // return yield call(firebase.getSnapshot, action.userId);
+function* pushFeedToFirebaseExec(uid, obj) {
+  const param = [uid, obj];
+  return yield call(firebase.pushFeedRecord, ...param);
 }
 
-
 export const subscribeSaga = [
-  takeEvery(USER_TOUCH_ADD_FEED.PENDING, setFeedToFirebase)
+  takeEvery(USER_TOUCH_ADD_FEED.PENDING, pushFeedToFirebase)
 ];
