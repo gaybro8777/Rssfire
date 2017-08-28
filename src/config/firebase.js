@@ -84,4 +84,9 @@ export default {
       },
     });
   },
+
+  pushFeedRecord(uid, obj) {
+    const ref = firebase.database().ref(`users/${uid}`);
+    return ref.child('feeds').push(obj);
+  },
 }
