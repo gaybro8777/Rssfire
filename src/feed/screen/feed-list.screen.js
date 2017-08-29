@@ -66,6 +66,7 @@ class FeedList extends Component {
       // onPressItem={this._onPressItem(item.id)}
       title={item.title}
       desc={item.description}
+      site={item.siteName}
     />
   );
 
