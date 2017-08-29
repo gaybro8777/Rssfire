@@ -22,7 +22,7 @@ const sortFeed = parsedData => {
   parsedData.map(val => {
     // console.log('val', val);
     if(val.name == 'title') {
-      siteName = val.children[0].value;
+      siteName = val.children[0].value.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
     }
 
     if(val.name == 'item') {
@@ -38,7 +38,8 @@ const sortFeed = parsedData => {
             feedItem['pubDate'] = Date.parse(item.children[0].value);
             break;
           case 'description':
-            feedItem['description'] = item.children[0].value;
+            let withoutTags = item.children[0].value.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'');
+            feedItem['description'] = withoutTags.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
             break;
           case 'content:encoded':
             feedItem['content'] = item.children[0].value;
