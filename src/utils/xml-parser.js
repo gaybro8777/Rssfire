@@ -29,7 +29,7 @@ const sortFeed = parsedData => {
       val.children.map(item => {
         switch (item.name) {
           case 'title':
-            feedItem['title'] = item.children[0].value;
+            feedItem['title'] = item.children[0].value.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
             break;
           case 'link':
             feedItem['link'] = item.children[0].value;
@@ -43,7 +43,8 @@ const sortFeed = parsedData => {
             break;
           case 'content:encoded':
             feedItem['content'] = item.children[0].value;
-            feedItem['image'] = item.children[0].value.match(/<img(.|\s)*?>/gi);
+            // feedItem['image'] = item.children[0].value.match(/<img(.|\s)*?>/gi);
+            feedItem['image'] = item.children[0].value.match(/<img.*?src=['"](.*?)['"]/);
             break;
           default:
             break;
