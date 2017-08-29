@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, ScrollView, Image, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, ScrollView, Image, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
 import { NoFeedNotification } from '../../components/index';
@@ -36,7 +36,7 @@ class FeedList extends Component {
     navigation: Object,
     uid: String,
     snapshot: Object,
-    feeds: Object,
+    feeds: Array,
     hasFeedsInSnapshot: Boolean,
     isPendingGetSnapshot: Boolean,
     isPendingFetchFeeds: Boolean,
@@ -100,7 +100,7 @@ class FeedList extends Component {
       // hasFeed true & is not fetching
       console.log('Has Feed List call get feed');
       // call get feed
-      console.log('Feeds', snapshot.feeds);
+      console.log('Snapshot Feeds', snapshot.feeds);
     }
 
     // false
@@ -127,6 +127,8 @@ class FeedList extends Component {
 
     // false
     // show feeds list
+
+    console.log('Sorted feeds', feeds);
 
     return (
       <View>
