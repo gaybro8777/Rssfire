@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, ScrollView, Image, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
-import { NoFeedNotification } from '../../components/index';
+import { NoFeedNotification, FeedItem } from '../../components/index';
 
 class FeedList extends Component {
   constructor(props) {
@@ -53,6 +53,21 @@ class FeedList extends Component {
   componentDidMount() {
     console.log('did mount');
   }
+
+  _keyExtractor = (item, index) => index;
+
+  _onPressItem = (id) => {
+    console.log('id', id);
+  };
+
+  _renderItem = ({item, index}) => (
+    <FeedItem
+      index={index}
+      // onPressItem={this._onPressItem(item.id)}
+      title={item.title}
+      desc={item.description}
+    />
+  );
 
   render() {
     const {
@@ -131,12 +146,11 @@ class FeedList extends Component {
     console.log('Sorted feeds', feeds);
 
     return (
-      <View>
-      <Button
-        onPress={() => console.log('test') }
-        title={`Test`}
+      <FlatList
+        data={feeds}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderItem}
       />
-      </View>
     );
   }
 }
