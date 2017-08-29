@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   snapshot: {},
-  feeds: {},
+  feeds: [],
   categories: {},
   hasFeedsInSnapshot: false,
   isPendingGetSnapshot: false,
