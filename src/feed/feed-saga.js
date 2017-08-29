@@ -10,20 +10,15 @@ import {
 } from './feed-type';
 
 function* getSnapshot(action) {
-  console.log('Action', action);
   try {
     const payload = yield getSnapshotExec(action);
     if(payload) {
-      // console.log('Saga feeds:', payload.val().feeds);
-      // console.log('Saga cats:', payload.val().categories);
-
       const hasFeedsInSnapshot = payload.hasChild('feeds');
 
       // Success get database from firebase
       yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload: payload.val(), hasFeedsInSnapshot });
 
       if(hasFeedsInSnapshot) {
-        // put get feed
         yield put({ type: SYSTEM_GET_FEEDS.PENDING, feeds: payload.val().feeds });
       }
 
@@ -40,15 +35,13 @@ function* getFeed(action) {
   // {type: "SYSTEM_GET_FEEDS_PENDING", feeds: {...}, @@redux-saga/SAGA_ACTION: true}
 
   const xmlRequest = yield call(getFeedExec, action.feeds);
-  // console.log(xmlRequest);
-
   // [
   //   {payload: "..."},
   //   {payload: "..."},
   //   {error: "..."}
   // ]
 
-  const result = yield all(
+  const parsedArray = yield all(
     xmlRequest.map(val => {
       if(val.payload) {
         return call(xmlParser, val.payload);
@@ -58,8 +51,21 @@ function* getFeed(action) {
     })
   );
 
-  console.log('Result:', result);
-  yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: result });
+  let unsortedFeeds = [];
+
+  parsedArray.forEach(val => {
+    return unsortedFeeds.push(...val);
+  });
+
+  const sortedFeeds = unsortedFeeds.sort((a,b) => {
+    if(a.pubDate > b.pubDate) return -1;
+    if(a.pubDate < b.pubDate) return 1;
+    return 0;
+  });
+
+  // console.log(sortedFeeds);
+
+  yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: sortedFeeds });
 
   // TODO
   // error handling
