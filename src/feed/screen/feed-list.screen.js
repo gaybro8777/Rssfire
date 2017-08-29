@@ -56,16 +56,17 @@ class FeedList extends Component {
 
   _keyExtractor = (item, index) => index;
 
-  _onPressItem = () => {
+  _onPressItem = (test) => {
     // console.log('Item link', item.link);
+    console.log(test);
     console.log('onpress-');
   };
 
   _renderItem = ({item, index}) => (
     <FeedItem
-      onPressItem={this._onPressItem}
+      onPress={this._onPressItem}
+      item={item}
       index={index}
-      {...item}
     />
   );
 

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableHighlight, Text, Image, View } from 'react-native';
+import moment from 'moment';
 
 const styles = StyleSheet.create({
   itemContainer: {
@@ -10,9 +11,10 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   imageContainer: {
-    width: 60,
-    height: 60,
+    width: 85,
+    height: 85,
     marginRight: 10,
+    borderRadius: 5,
   },
   textContainer: {
     width: 0,
@@ -20,55 +22,54 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textTitle : {
+    marginBottom: 3,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 17,
   },
-  textSite : {
-    fontSize: 11,
+  textBottom : {
+    marginTop: 6,
+    fontSize: 12,
   },
   textDescription: {
-    fontSize: 12,
+    fontSize: 13,
   },
 });
 
-export class FeedItem extends Component {
-  constructor(props) {
-    super(props);
-  }
+export const FeedItem = ({onPress, item, index}) => {
+  const {
+    image,
+    title,
+    link,
+    pubDate,
+    description,
+    content,
+    siteName,
+  } = item;
 
-  _onPress = () => {
-    console.log('feed-item press');
-  };
+  let timeDiff = moment(pubDate).fromNow();
 
-  render() {
-    const {
-      index,
-      title,
-      link,
-      pubDate,
-      description,
-      content,
-      siteName,
-    } = this.props;
-
-    return (
-      <TouchableHighlight activeOpacity={0.1} onPress={this._onPress}>
-        <View key={index} style={styles.itemContainer}>
-          <Image
-            style={styles.imageContainer}
-            source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          />
-          <View style={styles.textContainer}>
-            <Text style={styles.textTitle}>{title}</Text>
-            <Text style={styles.textDescription} numberOfLines={2}>{description}</Text>
-            <Text style={styles.textSite} numberOfLines={1}>
-              <Text>{siteName.length < 15 ? siteName : `${siteName.substring(0, 15)}...`}</Text>
-              <Text> | </Text>
-              <Text>{pubDate}</Text>
-            </Text>
-          </View>
+  return (
+    <TouchableHighlight
+      key={index}
+      activeOpacity={0.9}
+      underlayColor={'white'}
+      onPress={() => onPress(link)}
+    >
+      <View style={styles.itemContainer}>
+        <Image
+          style={styles.imageContainer}
+          source={{uri: image[1]}}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.textTitle}>{title}</Text>
+          <Text style={styles.textDescription} numberOfLines={2}>{description}</Text>
+          <Text style={styles.textBottom} numberOfLines={1}>
+            <Text>{siteName.length < 15 ? siteName : `${siteName.substring(0, 15)}...`}</Text>
+            <Text> | </Text>
+            <Text>{timeDiff}</Text>
+          </Text>
         </View>
-      </TouchableHighlight>
-    );
-  }
+      </View>
+    </TouchableHighlight>
+  );
 }
