@@ -53,7 +53,7 @@ export const FeedItem = ({onPress, item, index}) => {
       key={index}
       activeOpacity={0.9}
       underlayColor={'white'}
-      onPress={() => onPress(link)}
+      onPress={() => onPress(item)}
     >
       <View style={styles.itemContainer}>
         <Image
