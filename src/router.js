@@ -10,7 +10,7 @@ export const FeedStack = StackNavigator({
   Feed: {
     screen: FeedListContainer,
     navigationOptions: ({ navigation }) => ({
-      headerStyle: '#EFEFEF',
+      headerStyle: { backgroundColor: '#efefef' },
       title: 'ALL',
       headerRight: (
         <Icon
