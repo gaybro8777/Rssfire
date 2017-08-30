@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, ScrollView, Image, Text, View } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { ActivityIndicator, FlatList, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import { NoFeedNotification, FeedItem } from '../../components/index';
 
