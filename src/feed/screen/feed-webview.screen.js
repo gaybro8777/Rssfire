@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native';
+import { LoadingIndicator } from '../../components/index';
 
 class FeedWebView extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class FeedWebView extends Component {
     return (
       <WebView
         source={{ uri: link }}
+        renderLoading={() => <LoadingIndicator />}
+        startInLoadingState
       />
     );
   }
