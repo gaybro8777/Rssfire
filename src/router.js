@@ -10,14 +10,14 @@ export const FeedStack = StackNavigator({
   Feed: {
     screen: FeedListContainer,
     navigationOptions: ({ navigation }) => ({
-      headerStyle: { backgroundColor: '#efefef' },
+      headerStyle: { backgroundColor: '#e7e7e7' },
       title: 'ALL',
       headerRight: (
         <Icon
           name='md-add'
           type='ionicon'
           color='#575656'
-          iconStyle={{ marginRight: 18 }}
+          iconStyle={{ marginRight: 8, padding: 10 }}
           onPress={() => navigation.navigate('Subscribe')} />
       ),
     }),
