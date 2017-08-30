@@ -25,10 +25,10 @@ const mapStateToProps = state => ({
 
 // set dispatch to saga
 const mapDispatchToProps = dispatch => ({
-  getSnapshotByDispatch: userId => {
+  getSnapshotByDispatch: uid => {
     dispatch({
       type: SYSTEM_GET_SNAPSHOT.PENDING,
-      userId
+      uid
     })
   },
 });
