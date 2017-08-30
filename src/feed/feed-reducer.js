@@ -12,6 +12,7 @@ const initialState = {
   hasFeedsInSnapshot: false,
   isPendingGetSnapshot: false,
   isPendingFetchFeeds: false,
+  isPendingPullRefresh: false,
   error: '',
 };
 
@@ -52,6 +53,23 @@ export const feedReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isPendingFetchFeeds: false,
+        error: action.error,
+      };
+    case USER_PULL_REFRESH.PENDING:
+      return {
+        ...state,
+        isPendingPullRefresh: true,
+      };
+    case USER_PULL_REFRESH.SUCCESS:
+      return {
+        ...state,
+        feeds: action.payload,
+        isPendingPullRefresh: false,
+      };
+    case USER_PULL_REFRESH.ERROR:
+      return {
+        ...state,
+        isPendingPullRefresh: false,
         error: action.error,
       };
     default:
