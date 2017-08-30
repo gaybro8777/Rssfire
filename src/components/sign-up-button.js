@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
+import { colors } from '../utils/index';
+
 const styles = StyleSheet.create({
   buttonStyle: {
     marginTop: 10,
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
 
 export const SignUpButton = ({type, onPress}) => {
     let title = 'Sign up with ';
-    let backgroundColor = '#f0ad4e';
+    let backgroundColor = colors.accentColor;
     let textColor = '#fff';
 
     switch(type.toLowerCase()) {
@@ -43,7 +45,7 @@ export const SignUpButton = ({type, onPress}) => {
       // color={`${this.props.backgroundColor}`}
       // textStyle={}
       onPress={onPress}
-      fontSize={18}
+      fontSize={19}
       underlayColor="transparent"
       title={`${title}`}
     />
