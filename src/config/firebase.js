@@ -68,15 +68,15 @@ export default {
     // return firebase.auth().signInWithPopup(provider);
   },
 
-  getSnapshot(userId) {
-    return firebase.database().ref(`users/${userId}`).once('value');
+  getSnapshot(uid) {
+    return firebase.database().ref(`users/${uid}`).once('value');
   },
 
   // default database
-  setDefaultRecord(userId) {
+  setDefaultRecord(uid) {
     const ref = firebase.database().ref();
 
-    return ref.child(`users/${userId}`).set({
+    return ref.child(`users/${uid}`).set({
       categories: {
         1: {
           name: 'ALL',

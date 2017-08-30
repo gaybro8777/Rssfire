@@ -73,7 +73,7 @@ function* getFeed(action) {
 
 // Exec
 function* getSnapshotExec(action) {
-  return yield call(firebase.getSnapshot, action.userId);
+  return yield call(firebase.getSnapshot, action.uid);
 }
 
 function* getFeedExec(feeds) {
