@@ -65,7 +65,11 @@ function* getFeed(action) {
 
   // console.log(sortedFeeds);
 
-  yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: sortedFeeds });
+  if(action.type == 'SYSTEM_GET_FEEDS_PENDING') {
+    yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: sortedFeeds });
+  } else {
+    yield put({ type: USER_PULL_REFRESH.SUCCESS, payload: sortedFeeds });
+  }
 
   // TODO
   // error handling
@@ -87,5 +91,6 @@ function* getFeedExec(feeds) {
 
 export const feedSaga = [
   takeEvery(SYSTEM_GET_SNAPSHOT.PENDING, getSnapshot),
-  takeEvery(SYSTEM_GET_FEEDS.PENDING, getFeed)
+  takeEvery(SYSTEM_GET_FEEDS.PENDING, getFeed),
+  takeEvery(USER_PULL_REFRESH.PENDING, getFeed)
 ];
