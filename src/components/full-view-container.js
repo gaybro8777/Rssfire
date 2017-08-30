@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   fullViewContainer: {
@@ -14,6 +15,6 @@ const styles = StyleSheet.create({
 });
 
 export const FullViewContainer = ({children}) =>
-  <View style={styles.fullViewContainer}>
+  <LinearGradient colors={['#1B3951', '#325775']} style={styles.fullViewContainer}>
     {children}
-  </View>;
+  </LinearGradient>;
