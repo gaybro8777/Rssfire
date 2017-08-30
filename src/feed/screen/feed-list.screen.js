@@ -8,12 +8,6 @@ class FeedList extends Component {
     super(props);
   }
 
-  // Debug
-  _moveToWebView = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Repository');
-  }
-
   _moveToSubscribeView = () => {
     const { navigation } = this.props;
     navigation.navigate('Subscribe');
@@ -52,10 +46,9 @@ class FeedList extends Component {
 
   _keyExtractor = (item, index) => index;
 
-  _onPressItem = (test) => {
-    // console.log('Item link', item.link);
-    console.log(test);
-    console.log('onpress-');
+  _onPressItem = item => {
+    const { navigation } = this.props;
+    navigation.navigate('Webview', {item});
   };
 
   _renderItem = ({item, index}) => (
