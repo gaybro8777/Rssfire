@@ -24,9 +24,10 @@ export const FeedStack = StackNavigator({
   },
   Webview: {
     screen: FeedWebviewContainer,
-    navigationOptions: {
-      title: 'ALL',
-    },
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.item.title}`,
+      gesturesEnabled: false,
+    }),
   },
   Subscribe: {
     screen: SubscribeContainer,
