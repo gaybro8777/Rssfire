@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#ddd',
+    backgroundColor: '#fff',
   },
   imageContainer: {
     width: 85,
