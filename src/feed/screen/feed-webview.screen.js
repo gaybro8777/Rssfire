@@ -6,31 +6,20 @@ class FeedWebView extends Component {
     super(props);
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerRight: (
-        <Icon
-          name='ios-add'
-          type='ionicon'
-          color='#f50'
-          onPress={() => navigation.navigate('Subscribe')} />
-      ),
-    }
-  }
-
   props: {
     navigation: Object,
-    feeds: Object,
-    isPendingFetchFeeds: Boolean,
     error: String,
     getDatabaseByDispatch: Function,
   };
 
   render() {
+    const {
+      link
+    } = this.props.navigation.state.params.item;
+
     return (
       <WebView
-        source={{ uri: 'https://www.google.ca' }}
-        style={{ marginTop: 0 }}
+        source={{ uri: link }}
       />
     );
   }
