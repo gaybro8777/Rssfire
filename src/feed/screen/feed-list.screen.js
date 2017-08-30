@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
-import { Icon } from 'react-native-elements';
 
 import { NoFeedNotification, FeedItem, LoadingIndicator } from '../../components/index';
 
 class FeedList extends Component {
   constructor(props) {
     super(props);
-  }
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerRight: (
-        <Icon
-          name='ios-add'
-          type='ionicon'
-          color='#f50'
-          onPress={() => navigation.navigate('Subscribe')} />
-      ),
-    }
   }
 
   // Debug

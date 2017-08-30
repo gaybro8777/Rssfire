@@ -9,9 +9,18 @@ import { SubscribeContainer } from './subscribe/index';
 export const FeedStack = StackNavigator({
   Feed: {
     screen: FeedListContainer,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: '#EFEFEF',
       title: 'ALL',
-    },
+      headerRight: (
+        <Icon
+          name='md-add'
+          type='ionicon'
+          color='#575656'
+          iconStyle={{ marginRight: 18 }}
+          onPress={() => navigation.navigate('Subscribe')} />
+      ),
+    }),
   },
   Webview: {
     screen: FeedWebviewContainer,
