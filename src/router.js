@@ -6,17 +6,20 @@ import { SplashContainer, LoginContainer, SignUpContainer } from './auth/index';
 import { FeedListContainer, FeedWebviewContainer } from './feed/index';
 import { SubscribeContainer } from './subscribe/index';
 
+import { colors } from './utils/index';
+
 export const FeedStack = StackNavigator({
   Feed: {
     screen: FeedListContainer,
     navigationOptions: ({ navigation }) => ({
-      headerStyle: { backgroundColor: '#e7e7e7' },
-      title: 'ALL',
+      headerStyle: { backgroundColor: '#eee' },
+      headerTitleStyle: { color: colors.headerElementColor },
+      title: 'FEED',
       headerRight: (
         <Icon
           name='md-add'
           type='ionicon'
-          color='#575656'
+          color={colors.headerElementColor}
           iconStyle={{ marginRight: 8, padding: 10 }}
           onPress={() => navigation.navigate('Subscribe')} />
       ),
@@ -25,15 +28,17 @@ export const FeedStack = StackNavigator({
   Webview: {
     screen: FeedWebviewContainer,
     navigationOptions: ({ navigation }) => ({
+      headerTitleStyle: { color: colors.headerElementColor },
       title: `${navigation.state.params.item.title}`,
       gesturesEnabled: false,
     }),
   },
   Subscribe: {
     screen: SubscribeContainer,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
+      headerTitleStyle: { color: colors.headerElementColor },
       title: 'ADD',
-    },
+    }),
   },
 });
 
