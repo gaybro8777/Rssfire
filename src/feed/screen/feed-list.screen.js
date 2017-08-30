@@ -7,6 +7,10 @@ import { NoFeedNotification, FeedItem } from '../../components/index';
 class FeedList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      refreshing: false,
+    };
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -30,6 +34,16 @@ class FeedList extends Component {
   _moveToSubscribeView = () => {
     const { navigation } = this.props;
     navigation.navigate('Subscribe');
+  }
+
+  _pullRefresh = () => {
+    this.setState({
+      refreshing: true,
+    });
+    console.log('refresh');
+    this.setState({
+      refreshing: false,
+    });
   }
 
   props: {
@@ -151,6 +165,8 @@ class FeedList extends Component {
         data={feeds}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}
+        refreshing={this.state.refreshing}
+        onRefresh={() => this._pullRefresh}
       />
     );
   }
