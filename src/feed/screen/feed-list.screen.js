@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import { NoFeedNotification, FeedItem } from '../../components/index';
+import { NoFeedNotification, FeedItem, LoadingIndicator } from '../../components/index';
 
 class FeedList extends Component {
   constructor(props) {
@@ -98,11 +98,7 @@ class FeedList extends Component {
     // console.log('Error:', error);
 
     if(isPendingGetSnapshot || isPendingFetchFeeds) {
-      return (
-        <View>
-          <ActivityIndicator/>
-        </View>
-      );
+      return <LoadingIndicator />;
     }
 
     if(!hasFeedsInSnapshot) {
