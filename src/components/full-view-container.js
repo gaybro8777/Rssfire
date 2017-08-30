@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
 });
 
 export const FullViewContainer = ({children}) =>
-  <LinearGradient colors={['#1B3951', '#325775']} style={styles.fullViewContainer}>
+  <LinearGradient colors={['#325775', '#1B3951']} style={styles.fullViewContainer}>
     {children}
   </LinearGradient>;
