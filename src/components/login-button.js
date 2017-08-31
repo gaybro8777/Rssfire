@@ -43,7 +43,7 @@ export const LoginButton = ({type, onPress}) => {
       // color={`${this.props.backgroundColor}`}
       // textStyle={}
       onPress={onPress}
-      fontSize={18}
+      fontSize={19}
       underlayColor="transparent"
       title={`${title}`}
     />

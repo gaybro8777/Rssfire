@@ -1,25 +1,45 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native';
-import { Button } from 'react-native-elements';
+import { KeyboardAvoidingView, StyleSheet, TextInput, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import { resetNavigation } from '../../utils/index';
 import { LoginButton, FullViewContainer } from '../../components/index';
 
 const styles = StyleSheet.create({
-  textInput: {
-    width: '90%',
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     borderBottomWidth: 1,
     borderColor: '#fff',
-    alignItems: 'center',
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginBottom: 10,
   },
-  buttonStyle: {
+  icon: {
+    width: 30,
+  },
+  mailIcon: {
+    position: 'relative',
+    right: 8,
+  },
+  passwordIcon: {
+    position: 'relative',
+    right: 2,
+  },
+  textInput: {
+    width: '80%',
+    color: '#fff',
+  },
+  noticeText: {
     marginTop: 20,
-    borderWidth: 1,
-    borderColor: '#fff',
+    marginBottom: 10,
+    color: '#fff',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    fontSize: 17,
   },
 });
 
@@ -34,10 +54,8 @@ class Login extends Component {
     };
   }
 
-  // Debug
   _moveToSignUp = () => {
     const { navigation } = this.props;
-    // navigation.navigate('SignUp');
     resetNavigation('SignUp', navigation);
   }
 
@@ -80,43 +98,48 @@ class Login extends Component {
           style={{width: '100%'}}
           behavior="padding"
         >
-          <LoginButton
-            type="Facebook"
-            // onPress={}
-          />
-          <LoginButton
-            type="Twitter"
-            // onPress={}
-          />
-          <LoginButton
-            type="Google"
-            // onPress={}
-          />
-          <TextInput
-            style={styles.textInput}
-            placeholder={"Email Address"}
-            placeholderTextColor="#c8c8c8"
-            onChangeText={(text) => this.setState({email: text})}
-            value={this.state.email}
-          />
-          <TextInput
-            style={styles.textInput}
-            placeholder="Password"
-            placeholderTextColor="#c8c8c8"
-            onChangeText={(text) => this.setState({password: text})}
-            secureTextEntry={true}
-            value={this.state.password}
-          />
+          <View style={styles.inputContainer}>
+            <Icon
+              name='envelope'
+              type='simple-line-icon'
+              color='#fff'
+              iconStyle={[styles.icon, styles.mailIcon]}
+            />
+            <TextInput
+              style={styles.textInput}
+              placeholder={"Email Address"}
+              placeholderTextColor="#c8c8c8"
+              onChangeText={text => this.setState({email: text})}
+              value={this.state.email}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Icon
+              name='lock'
+              type='font-awesome'
+              color='#fff'
+              iconStyle={[styles.icon, styles.passwordIcon]}
+            />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Password"
+              placeholderTextColor="#c8c8c8"
+              onChangeText={text => this.setState({password: text})}
+              secureTextEntry={true}
+              value={this.state.password}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+
           <LoginButton
             type="E-mail"
             onPress={() => this.props.loginWithEmailByDispatch(this.state.email, this.state.password, navigation)}
           />
-          <Button
-            buttonStyle={styles.buttonStyle}
-            onPress={this._moveToSignUp}
-            fontSize={18}
-            title="Don't have an account? Sign up"
-          />
+
+          <Text style={styles.noticeText} onPress={this._moveToSignUp}>Don't have an account? Sign up</Text>
+
         </KeyboardAvoidingView>
       </FullViewContainer>
     );
