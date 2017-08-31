@@ -1,19 +1,3 @@
-// At first, all actions through saga
-
-// select - get state
-
-// take - wait for action(dispatch)
-// put - do action
-// call - wait for api like getting data from internet
-
-// fork - to start another task
-// join - wait for another task which is done
-
-// name rule
-
-// function* name(){...}
-// function* watchName(){...}
-
 import { AsyncStorage } from 'react-native';
 import { call, put, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
@@ -27,8 +11,6 @@ import {
 } from './auth-type';
 
 firebase.init();
-// firebase.setDefaultRecord();
-// firebase.getData();
 
 // For Debug
 function* deleteUserIdFromStorage() {
