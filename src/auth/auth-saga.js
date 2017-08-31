@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { delay } from 'redux-saga';
 import { call, put, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
 import { resetNavigation } from '../utils/index';
@@ -27,6 +28,9 @@ function* getUserId(action) {
     // Debug
     // yield deleteUserIdFromStorage();
     const payload = yield getUserIdExec();
+
+    yield delay(1500);
+
     if(payload !== null) {
       yield put({ type: SYSTEM_AUTH_USER.SUCCESS, payload });
       resetNavigation('Home', action.navigation);
