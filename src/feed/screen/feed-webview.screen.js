@@ -93,8 +93,6 @@ class FeedWebView extends Component {
       link
     } = this.props.navigation.state.params.item;
 
-    console.log('REF:', this.refs[WEBVIEW]);
-
     return (
       <View style={styles.wrapper}>
         <WebView
