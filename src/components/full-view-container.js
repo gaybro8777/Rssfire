@@ -7,9 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // flexDirection: 'column',
     flexDirection: 'row',
-    // justifyContent: 'flex-start',
-    justifyContent: 'center',
-    // alignItems: 'stretch',
+    // justifyContent: 'center',
     alignItems: 'center',
   },
 });
