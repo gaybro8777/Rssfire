@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebView, StyleSheet, Text, View } from 'react-native';
+import { Share, WebView, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { LoadingIndicator } from '../../components/index';
@@ -40,6 +40,24 @@ class FeedWebView extends Component {
     getDatabaseByDispatch: Function,
   };
 
+  _shareAction = () => {
+    Share.share(
+      {
+        message: 'React Native apps Message',
+        title: 'Title',
+        url: 'https://www.google.ca/',
+      },
+      {
+        // Android only:
+        dialogTitle: 'Android dialog',
+        // iOS only:
+        // excludedActivityTypes: [
+        //   'com.apple.UIKit.activity.PostToTwitter'
+        // ]
+      }
+    );
+  }
+
   render() {
     const {
       link
@@ -76,7 +94,7 @@ class FeedWebView extends Component {
             type='evilicon'
             size={32}
             iconStyle={styles.iconBase}
-            onPress={() => console.log('test') } />
+            onPress={this._shareAction} />
         </View>
       </View>
     );
