@@ -1,9 +1,11 @@
 import { delay } from 'redux-saga';
 import { select, call, put, take, takeEvery, all } from 'redux-saga/effects';
 import firebase from '../config/firebase';
+import { USER_TOUCH_ADD_FEED } from './subscribe-type';
 import {
-  USER_TOUCH_ADD_FEED
-} from './subscribe-type';
+  SYSTEM_GET_SNAPSHOT,
+  SYSTEM_GET_FEEDS
+} from '../feed/index';
 
 function* pushFeedToFirebase(action) {
   try {
@@ -14,6 +16,8 @@ function* pushFeedToFirebase(action) {
     }
 
     const result = yield pushFeedToFirebaseExec(action.uid, feedObj);
+
+    yield put({ type: SYSTEM_GET_SNAPSHOT.PENDING, uid: action.uid });
 
     yield put({ type: USER_TOUCH_ADD_FEED.SUCCESS });
   } catch(error) {
