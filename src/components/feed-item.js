@@ -57,10 +57,13 @@ export const FeedItem = ({onPress, item, index}) => {
       onPress={() => onPress(item)}
     >
       <View style={styles.itemContainer}>
-        <Image
-          style={styles.imageContainer}
-          source={{uri: image[1]}}
-        />
+        {image !== undefined ?
+          <Image
+            style={styles.imageContainer}
+            source={{uri: image[1]}}
+          />
+          : null
+        }
         <View style={styles.textContainer}>
           <Text style={styles.textTitle}>{title}</Text>
           <Text style={styles.textDescription} numberOfLines={2}>{description}</Text>
