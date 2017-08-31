@@ -4,6 +4,8 @@ import { Icon } from 'react-native-elements';
 
 import { LoadingIndicator } from '../../components/index';
 
+const WEBVIEW = "WEBVIEW_REF";
+
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -32,6 +34,11 @@ const styles = StyleSheet.create({
 class FeedWebView extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      canGoBack: false,
+      canGoForward: false,
+    };
   }
 
   props: {
@@ -58,15 +65,42 @@ class FeedWebView extends Component {
     );
   }
 
+  _navigationStateChange = webview => {
+    this.setState({
+      canGoBack: webview.canGoBack,
+      canGoForward: webview.canGoForward,
+    });
+  };
+
+  _goBack = () => {
+    if(this.state.canGoBack) {
+      this.refs[WEBVIEW].goBack();
+    }
+  };
+
+  _goForward = () => {
+    if(this.state.canGoForward) {
+      this.refs[WEBVIEW].goForward();
+    }
+  };
+
+  _reload = () => {
+    this.refs[WEBVIEW].reload();
+  };
+
   render() {
     const {
       link
     } = this.props.navigation.state.params.item;
 
+    console.log('REF:', this.refs[WEBVIEW]);
+
     return (
       <View style={styles.wrapper}>
         <WebView
+          ref={WEBVIEW}
           source={{ uri: link }}
+          onNavigationStateChange={this._navigationStateChange.bind(this)}
           renderLoading={() => <LoadingIndicator />}
           startInLoadingState
         />
@@ -76,19 +110,19 @@ class FeedWebView extends Component {
             type='ionicon'
             size={30}
             iconStyle={styles.iconBase}
-            onPress={() => console.log('test') } />
+            onPress={this._goBack} />
           <Icon
             name='ios-arrow-forward'
             type='ionicon'
             size={30}
             iconStyle={styles.iconBase}
-            onPress={() => console.log('test') } />
+            onPress={this._goForward} />
           <Icon
             name='ios-refresh'
             type='ionicon'
             size={33}
             iconStyle={[styles.iconBase, styles.refreshIcon]}
-            onPress={() => console.log('test') } />
+            onPress={this._reload} />
           <Icon
             name='share-apple'
             type='evilicon'
