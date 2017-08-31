@@ -41,6 +41,8 @@ function* getFeed(action) {
   //   {error: "..."}
   // ]
 
+  // console.log('XML:', xmlRequest);
+
   const parsedArray = yield all(
     xmlRequest.map(val => {
       if(val.payload) {
@@ -51,10 +53,14 @@ function* getFeed(action) {
     })
   );
 
+  // console.log('Parsed Array:', parsedArray);
+
   let unsortedFeeds = [];
 
   parsedArray.forEach(val => {
-    return unsortedFeeds.push(...val);
+    if(val !== null){
+      return unsortedFeeds.push(...val);
+    }
   });
 
   const sortedFeeds = unsortedFeeds.sort((a,b) => {
