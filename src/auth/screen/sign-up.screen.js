@@ -1,23 +1,40 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet, TextInput, Text } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TextInput, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import { resetNavigation } from '../../utils/index';
 import { SignUpButton, FullViewContainer } from '../../components/index';
 
 const styles = StyleSheet.create({
-  textInput: {
-    width: '90%',
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: 10,
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     borderBottomWidth: 1,
     borderColor: '#fff',
-    alignItems: 'center',
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  icon: {
+    width: 30,
+  },
+  mailIcon: {
+    position: 'relative',
+    right: 8,
+  },
+  passwordIcon: {
+    position: 'relative',
+    right: 2,
+  },
+  textInput: {
+    width: '80%',
+    color: '#fff',
   },
   noticeText: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     color: '#fff',
     backgroundColor: 'transparent',
@@ -82,30 +99,47 @@ class SignUp extends Component {
           style={{width: '100%'}}
           behavior="padding">
 
-          <TextInput
-            style={styles.textInput}
-            placeholder={"Email Address"}
-            placeholderTextColor="#c8c8c8"
-            onChangeText={(text) => this.setState({email: text})}
-            value={this.state.email}
-            underlineColorAndroid="transparent"
-          />
-          <TextInput
-            style={styles.textInput}
-            placeholder="Password"
-            placeholderTextColor="#c8c8c8"
-            onChangeText={(text) => this.setState({password: text})}
-            secureTextEntry={true}
-            value={this.state.password}
-            underlineColorAndroid="transparent"
-          />
+          <View style={styles.inputContainer}>
+            <Icon
+              name='envelope'
+              type='simple-line-icon'
+              color='#fff'
+              iconStyle={[styles.icon, styles.mailIcon]}
+            />
+            <TextInput
+              style={styles.textInput}
+              placeholder={"Email Address"}
+              placeholderTextColor="#c8c8c8"
+              onChangeText={text => this.setState({email: text})}
+              value={this.state.email}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Icon
+              name='lock'
+              type='font-awesome'
+              color='#fff'
+              iconStyle={[styles.icon, styles.passwordIcon]}
+            />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Password"
+              placeholderTextColor="#c8c8c8"
+              onChangeText={text => this.setState({password: text})}
+              secureTextEntry={true}
+              value={this.state.password}
+              underlineColorAndroid="transparent"
+            />
+          </View>
 
           <SignUpButton
             type="E-mail"
             onPress={() => this.props.signUpWithEmailByDispatch(this.state.email, this.state.password, navigation)}
           />
 
-          <Text style={styles.noticeText}>Already have an account? <Text onPress={this._moveToLogin}>Login</Text></Text>
+          <Text style={styles.noticeText} onPress={this._moveToLogin}>Already have an account? Login</Text>
 
         </KeyboardAvoidingView>
       </FullViewContainer>
