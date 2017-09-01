@@ -16,6 +16,13 @@ export const FeedStack = StackNavigator({
       headerStyle: { backgroundColor: colors.headerBackgroundColor },
       headerTitleStyle: { color: colors.headerElementColor },
       title: 'FEED',
+      headerLeft: (
+        <Icon
+          name='menu'
+          color={colors.headerElementColor}
+          iconStyle={{ marginLeft: 8, padding: 10 }}
+          onPress={() => navigation.navigate('DrawerOpen')} />
+      ),
       headerRight: (
         <Icon
           name='md-add'
