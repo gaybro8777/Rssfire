@@ -36,6 +36,8 @@ class FeedWebView extends Component {
     super(props);
 
     this.state = {
+      title: '',
+      url: '',
       canGoBack: false,
       canGoForward: false,
     };
@@ -43,16 +45,14 @@ class FeedWebView extends Component {
 
   props: {
     navigation: Object,
-    error: String,
-    getDatabaseByDispatch: Function,
   };
 
   _shareAction = () => {
     Share.share(
       {
-        message: 'React Native apps Message',
-        title: 'Title',
-        url: 'https://www.google.ca/',
+        message: `${this.state.title}`,
+        title: 'Share this content',
+        url: `${this.state.url}`,
       },
       {
         // Android only:
@@ -66,7 +66,10 @@ class FeedWebView extends Component {
   }
 
   _navigationStateChange = webview => {
+    // console.log('Web View:', webview);
     this.setState({
+      title: webview.title,
+      url: webview.url,
       canGoBack: webview.canGoBack,
       canGoForward: webview.canGoForward,
     });
