@@ -3,4 +3,5 @@ export const colors = {
   mainColor: '#1e69e1',
   accentColor: '#13bfa3',
   headerElementColor: '#575656',
+  headerBackgroundColor: '#eee',
 };
