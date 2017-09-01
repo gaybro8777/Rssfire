@@ -12,7 +12,7 @@ export const FeedStack = StackNavigator({
   Feed: {
     screen: FeedListContainer,
     navigationOptions: ({ navigation }) => ({
-      headerStyle: { backgroundColor: '#eee' },
+      headerStyle: { backgroundColor: colors.headerBackgroundColor },
       headerTitleStyle: { color: colors.headerElementColor },
       title: 'FEED',
       headerRight: (
@@ -28,6 +28,7 @@ export const FeedStack = StackNavigator({
   Webview: {
     screen: FeedWebviewContainer,
     navigationOptions: ({ navigation }) => ({
+      headerStyle: { backgroundColor: colors.headerBackgroundColor },
       headerTitleStyle: { color: colors.headerElementColor },
       title: `${navigation.state.params.item.title}`,
       gesturesEnabled: false,
@@ -36,6 +37,7 @@ export const FeedStack = StackNavigator({
   Subscribe: {
     screen: SubscribeContainer,
     navigationOptions: ({ navigation }) => ({
+      headerStyle: { backgroundColor: colors.headerBackgroundColor },
       headerTitleStyle: { color: colors.headerElementColor },
       title: 'ADD',
     }),
