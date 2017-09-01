@@ -1,10 +1,11 @@
 import React from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 import { SplashContainer, LoginContainer, SignUpContainer } from './auth/index';
 import { FeedListContainer, FeedWebviewContainer } from './feed/index';
 import { SubscribeContainer } from './subscribe/index';
+import { DrawerContainer } from './drawer/index';
 
 import { colors } from './utils/index';
 
@@ -43,6 +44,24 @@ export const FeedStack = StackNavigator({
     }),
   },
 });
+
+const DrawerStack = DrawerNavigator(
+  {
+    Stack: {
+      screen: FeedStack
+    }
+  },
+  {
+    contentComponent: DrawerContainer,
+    contentOptions: {
+      activeTintColor: '#e91e63',
+      style: {
+        flex: 1,
+        paddingTop: 15,
+      }
+    }
+  }
+);
 
 // export const Tabs = TabNavigator({
 //   Repositories: {
@@ -87,7 +106,7 @@ export const Root = StackNavigator({
     },
   },
   Home: {
-    screen: FeedStack,
+    screen: DrawerStack,
   },
 },
 {
