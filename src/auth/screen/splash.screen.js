@@ -43,7 +43,8 @@ class Splash extends Component {
       uid,
     } = this.props;
 
-    console.log('UID', uid);
+    // Debug
+    // console.log('UID:', uid);
 
     return (
       <FullViewContainer>
