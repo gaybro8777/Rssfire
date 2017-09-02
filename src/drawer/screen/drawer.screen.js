@@ -18,17 +18,29 @@ class Drawer extends Component {
       snapshot,
     } = this.props;
 
-    console.log(snapshot);
-
-    if (Object.keys(snapshot).length === 0) { console.log('length 0') }
-
-    // const hasFeeds = () => {
-    //   if(snapshot
-    // }
+    const hasFeeds =  snapshot.hasOwnProperty('feeds');
 
     return (
       <View>
         <Text>Feed List</Text>
+        {hasFeeds &&
+          <List>
+          {
+            Object.keys(snapshot.feeds).map((key, index) => {
+              const title = snapshot.feeds[key]['title'];
+              const url = snapshot.feeds[key]['url'];
+
+              return (
+                <ListItem
+                  key={index}
+                  title={title}
+                  onPress={() => console.log(url)}
+                />
+              )
+            })
+          }
+          </List>
+        }
         <List>
           <ListItem
             key="key-logout"
@@ -39,16 +51,5 @@ class Drawer extends Component {
     );
   }
 }
-
-// <List>
-// {
-//   list.map((l, i) => (
-//     <ListItem
-//       key={i}
-//       title={l.name}
-//     />
-//   ))
-// }
-// </List>
 
 export const DrawerScreen = Drawer;
