@@ -41,7 +41,7 @@ const sortFeed = parsedData => {
             feedItem['pubDate'] = Date.parse(item.children[0].value);
             break;
           case 'description':
-            let withoutTags = item.children[0].value.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'');
+            let withoutTags = item.children[0].value.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'').replace(/&nbsp;|\t|\n/g, '');
             feedItem['description'] = withoutTags.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
             break;
           case 'content:encoded':
