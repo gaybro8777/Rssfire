@@ -6,7 +6,8 @@ const initialState = {
 };
 
 export const subscribeReducer = (state = initialState, action = {}) => {
-  console.log('Exec subscribe Reducer:' + action.type);
+  // Debug
+  // console.log('Subscribe Reducer:', action.type);
   switch(action.type) {
     case USER_TOUCH_ADD_FEED.PENDING:
       return {

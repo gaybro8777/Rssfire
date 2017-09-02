@@ -20,7 +20,8 @@ const initialState = {
 };
 
 export const authReducer = (state = initialState, action = {}) => {
-  console.log('Exec auth Reducer:' + action.type);
+  // Debug
+  // console.log('Auth Reducer:', action.type);
   switch(action.type) {
     case SYSTEM_AUTH_USER.PENDING:
 

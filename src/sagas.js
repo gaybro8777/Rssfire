@@ -8,7 +8,6 @@ import { feedSaga } from './feed/index';
 import { subscribeSaga } from './subscribe/index';
 
 const rootSaga = function* rootSaga() {
-  console.log('exec rootSaga');
   yield all([
     ...authSaga,
     ...feedSaga,
