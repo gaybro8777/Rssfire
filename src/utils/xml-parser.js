@@ -13,8 +13,20 @@ export const xmlParser = xml => {
   return parsedData;
 };
 
+const getImagePath = str => {
+  let urls = [];
+  let res = [];
+  const rex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/g;
+
+  while(res = rex.exec(str)) {
+    urls.push(res[1]);
+  }
+
+  return urls.length > 0 ? urls : null;
+}
+
 const sortFeed = parsedData => {
-  let image = null;
+  let imagePaths = null;
   let siteName = null;
   let feedItem = {};
   let feeds = [];
@@ -41,13 +53,21 @@ const sortFeed = parsedData => {
             feedItem['pubDate'] = Date.parse(item.children[0].value);
             break;
           case 'description':
+            imagePaths = getImagePath(item.children[0].value);
+            if(imagePaths !== null && feedItem['image'] !== null) {
+              feedItem['image'] = imagePaths;
+            }
+
             let withoutTags = item.children[0].value.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'').replace(/&nbsp;|\t|\n/g, '');
             feedItem['description'] = withoutTags.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
             break;
           case 'content:encoded':
+            imagePaths = getImagePath(item.children[0].value);
+            if(imagePaths !== null && feedItem['image'] !== null) {
+              feedItem['image'] = imagePaths;
+            }
+
             feedItem['content'] = item.children[0].value;
-            // feedItem['image'] = item.children[0].value.match(/<img(.|\s)*?>/gi);
-            feedItem['image'] = item.children[0].value.match(/<img.*?src=['"](.*?)['"]/);
             break;
           default:
             break;
