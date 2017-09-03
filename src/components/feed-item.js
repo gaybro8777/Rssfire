@@ -60,7 +60,7 @@ export const FeedItem = ({onPress, item, index}) => {
         {image !== undefined ?
           <Image
             style={styles.imageContainer}
-            source={{uri: image[1]}}
+            source={{uri: image[0]}}
           />
           : null
         }
@@ -68,7 +68,7 @@ export const FeedItem = ({onPress, item, index}) => {
           <Text style={styles.textTitle}>{title}</Text>
           <Text style={styles.textDescription} numberOfLines={2}>{description}</Text>
           <Text style={styles.textBottom} numberOfLines={1}>
-            <Text>{siteName.length < 15 ? siteName : `${siteName.substring(0, 15)}...`}</Text>
+            <Text>{siteName.length < 20 ? siteName : `${siteName.substring(0, 20)}...`}</Text>
             <Text> | </Text>
             <Text>{timeDiff}</Text>
           </Text>
