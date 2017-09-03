@@ -74,7 +74,12 @@ const sortFeed = parsedData => {
         }
       });
 
-      feedItem['siteName'] = siteName;
+      if(siteName == null) {
+        feedItem['siteName'] = 'test';
+      } else {
+        feedItem['siteName'] = siteName;
+      }
+
       // console.log('Feed Item:', feedItem);
       feeds.push(feedItem);
       feedItem = {};
