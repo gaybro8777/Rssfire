@@ -5,7 +5,15 @@ export const xmlParser = xml => {
   let parsedData = [];
 
   reader.on('done', data => {
-    parsedData = sortFeed(data.children[0].children);
+    let tempData = data.children[0].children;
+    while(true) {
+      if(tempData.length > 1) {
+        parsedData = sortFeed(tempData);
+        break;
+      } else {
+        tempData = tempData[0].children;
+      }
+    }
   });
 
   reader.parse(xml);
@@ -31,10 +39,20 @@ const sortFeed = parsedData => {
   let feedItem = {};
   let feeds = [];
 
+  // console.log('Parsed Data:', parsedData);
+
   parsedData.map(val => {
     // console.log('val', val);
     if(val.name == 'title') {
       siteName = val.children[0].value.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
+    }
+
+    if(val.name === 'channel') {
+      val.children.map(item => {
+        if(item.name === 'title') {
+          siteName = item.children[0].value.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
+        }
+      });
     }
 
     if(val.name == 'item') {
@@ -75,7 +93,7 @@ const sortFeed = parsedData => {
       });
 
       if(siteName == null) {
-        feedItem['siteName'] = 'test';
+        feedItem['siteName'] = ' ';
       } else {
         feedItem['siteName'] = siteName;
       }
