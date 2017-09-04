@@ -33,9 +33,32 @@ const getImagePath = str => {
   return urls.length > 0 ? urls : null;
 }
 
+const entitiesDecoder = str => {
+  const entities = {
+    'amp': '&',
+    'apos': '\'',
+    'lt': '<',
+    'gt': '>',
+    'quot': '"',
+    'nbsp': ' ',
+  };
+
+  const rex = /&([a-z]+);/ig;
+
+  return str.replace(rex, (match, entity) => {
+    entity = entity.toLowerCase();
+    if (entities.hasOwnProperty(entity)) {
+      return entities[entity];
+    }
+
+    return match;
+  });
+}
+
 const sortFeed = parsedData => {
   let imagePaths = null;
   let siteName = null;
+  let withoutTags = null;
   let feedItem = {};
   let feeds = [];
 
@@ -43,7 +66,7 @@ const sortFeed = parsedData => {
 
   parsedData.map(val => {
     // console.log('val', val);
-    if(val.name == 'title') {
+    if(val.name === 'title') {
       siteName = val.children[0].value.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
     }
 
@@ -55,7 +78,7 @@ const sortFeed = parsedData => {
       });
     }
 
-    if(val.name == 'item') {
+    if(val.name === 'item') {
       val.children.map(item => {
         switch (item.name) {
           case 'title':
@@ -71,32 +94,27 @@ const sortFeed = parsedData => {
             feedItem['pubDate'] = Date.parse(item.children[0].value);
             break;
           case 'description':
-            imagePaths = getImagePath(item.children[0].value);
-            if(imagePaths !== null && feedItem['image'] !== null) {
-              feedItem['image'] = imagePaths;
-            }
-
-            let withoutTags = item.children[0].value.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'').replace(/&nbsp;|\t|\n/g, '');
-            feedItem['description'] = withoutTags.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
-            break;
           case 'content:encoded':
+            withoutTags = entitiesDecoder(item.children[0].value);
             imagePaths = getImagePath(item.children[0].value);
             if(imagePaths !== null && feedItem['image'] !== null) {
               feedItem['image'] = imagePaths;
             }
 
-            feedItem['content'] = item.children[0].value;
+            withoutTags = withoutTags.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'').replace(/&nbsp;|\t|\n/g, '');
+            if(item.name === 'description') {
+              feedItem['description'] = withoutTags.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
+            } else {
+              feedItem['content'] = withoutTags.replace(/&#(\d+);/g, (match, dec) => { return String.fromCharCode(dec)});
+            }
+
             break;
           default:
             break;
         }
       });
 
-      if(siteName == null) {
-        feedItem['siteName'] = ' ';
-      } else {
-        feedItem['siteName'] = siteName;
-      }
+      feedItem['siteName'] = (siteName === null) ? ' ' : siteName;
 
       // console.log('Feed Item:', feedItem);
       feeds.push(feedItem);
