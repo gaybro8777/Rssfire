@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { resetNavigation } from '../../utils/index';
 import { FullViewContainer } from '../../components/index';
 
 const styles = StyleSheet.create({
-  textInput: {
-    width: '90%',
+  viewContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 150,
+    height: 150,
   },
 });
 
@@ -23,7 +31,6 @@ class Splash extends Component {
   props: {
     navigation: Object,
     uid: String,
-    isAuthenticated: Boolean,
     error: String,
     checkAuthUserByDispatch: Function,
   };
@@ -47,9 +54,12 @@ class Splash extends Component {
     // console.log('UID:', uid);
 
     return (
-      <FullViewContainer>
-        <Text>Splash</Text>
-      </FullViewContainer>
+      <View style={styles.viewContainer}>
+        <Image
+          style={styles.logo}
+          source={require('../../assets/logo.png')}
+        />
+      </View>
     );
   }
 }
