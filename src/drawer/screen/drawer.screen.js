@@ -2,6 +2,21 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
 
+const styles = StyleSheet.create({
+  logoutButton: {
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+  },
+  logoutText: {
+    fontSize: 18,
+    color: '#fa6458',
+  },
+});
+
 class Drawer extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +57,8 @@ class Drawer extends Component {
           </List>
         }
         <Button
+          textStyle={styles.logoutText}
+          buttonStyle={styles.logoutButton}
           title='Logout'
         />
       </View>
