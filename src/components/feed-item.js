@@ -49,6 +49,8 @@ export const FeedItem = ({onPress, item, index}) => {
 
   let timeDiff = moment(pubDate).fromNow();
 
+  const hasImage = image !== undefined;
+
   return (
     <TouchableHighlight
       key={index}
@@ -57,7 +59,7 @@ export const FeedItem = ({onPress, item, index}) => {
       onPress={() => onPress(item)}
     >
       <View style={styles.itemContainer}>
-        {image !== undefined ?
+        {hasImage ?
           <Image
             style={styles.imageContainer}
             source={{uri: image[0]}}
@@ -65,7 +67,7 @@ export const FeedItem = ({onPress, item, index}) => {
           : null
         }
         <View style={styles.textContainer}>
-          <Text style={styles.textTitle}>{title}</Text>
+          <Text style={styles.textTitle} numberOfLines={2}>{title}</Text>
           <Text style={styles.textDescription} numberOfLines={2}>{description}</Text>
           <Text style={styles.textBottom} numberOfLines={1}>
             <Text>{siteName.length < 20 ? siteName : `${siteName.substring(0, 20)}...`}</Text>
