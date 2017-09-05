@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { Button, List, ListItem } from 'react-native-elements';
 
 class Drawer extends Component {
   constructor(props) {
@@ -41,12 +41,9 @@ class Drawer extends Component {
           }
           </List>
         }
-        <List>
-          <ListItem
-            key="key-logout"
-            title="Logout"
-          />
-        </List>
+        <Button
+          title='Logout'
+        />
       </View>
     );
   }
