@@ -24,10 +24,12 @@ export const xmlParser = xml => {
 const getImagePath = str => {
   let urls = [];
   let res = [];
-  const rex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/g;
+  // const rex = /<img[^>]+src="?([^"\s]+)"?[^>]*\/>/g;
+  const rex = /<img[^>]+src="?(([^"\s]+)(\.jpg|\.png))"?[^>]*\/>/g;
 
   while(res = rex.exec(str)) {
-    urls.push(res[1]);
+    // console.log('res', res);
+    urls.push(res[1].replace(/^http:\/\//i, 'https://'));
   }
 
   return urls.length > 0 ? urls : null;
@@ -96,7 +98,7 @@ const sortFeed = parsedData => {
           case 'description':
           case 'content:encoded':
             withoutTags = entitiesDecoder(item.children[0].value);
-            imagePaths = getImagePath(item.children[0].value);
+            imagePaths = getImagePath(withoutTags);
             if(imagePaths !== null && feedItem['image'] !== null) {
               feedItem['image'] = imagePaths;
             }
