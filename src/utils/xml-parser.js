@@ -30,6 +30,7 @@ const getImagePath = str => {
   while(res = rex.exec(str)) {
     // console.log('res', res);
     urls.push(res[1].replace(/^http:\/\//i, 'https://'));
+    break;
   }
 
   return urls.length > 0 ? urls : null;
