@@ -16,9 +16,10 @@ const mapStateToProps = state => ({
 // TODO
 // implement to dispatch action
 const mapDispatchToProps = dispatch => ({
-  setFeedByDispatch: (uid, title, url, category) => {
+  setFeedByDispatch: (navigation, uid, title, url, category) => {
     dispatch({
       type: USER_TOUCH_ADD_FEED.PENDING,
+      navigation,
       uid,
       title,
       url,

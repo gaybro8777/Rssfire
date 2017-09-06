@@ -82,7 +82,7 @@ class Subscribe extends Component {
           containerViewStyle={{ width: '90%' }}
           title="ADD FEED"
           onPress={
-            () => this.props.setFeedByDispatch(uid, this.state.title, this.state.url, this.state.category)
+            () => this.props.setFeedByDispatch(navigation, uid, this.state.title, this.state.url, this.state.category)
           }
         />
       </KeyboardAvoidingView>
