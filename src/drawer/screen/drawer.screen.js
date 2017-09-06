@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
 
 const styles = StyleSheet.create({
+  drawerContainer: {
+    paddingTop: 20,
+  },
   logoutButton: {
     marginTop: 15,
     marginBottom: 15,
@@ -36,8 +39,7 @@ class Drawer extends Component {
     const hasFeeds =  snapshot.hasOwnProperty('feeds');
 
     return (
-      <View>
-        <Text>Feed List</Text>
+      <View style={styles.drawerContainer}>
         {hasFeeds &&
           <List>
           {
