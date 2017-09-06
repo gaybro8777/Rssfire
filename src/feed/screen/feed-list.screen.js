@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 
-import { NoFeedNotification, FeedItem, LoadingIndicator } from '../../components/index';
+import { NoFeedNotification, FeedItem } from '../../components/index';
 
 class FeedList extends Component {
   constructor(props) {
