@@ -26,8 +26,6 @@ class FeedList extends Component {
     snapshot: Object,
     feeds: Array,
     hasFeedsInSnapshot: Boolean,
-    isPendingGetSnapshot: Boolean,
-    isPendingFetchFeeds: Boolean,
     isPendingPullRefresh: Boolean,
     error: String,
     getSnapshotByDispatch: Function,
@@ -66,8 +64,6 @@ class FeedList extends Component {
       snapshot,
       feeds,
       hasFeedsInSnapshot,
-      isPendingGetSnapshot,
-      isPendingFetchFeeds,
       isPendingPullRefresh,
       error,
     } = this.props;
@@ -77,9 +73,9 @@ class FeedList extends Component {
     // console.log('Feeds', feeds);
     // console.log('Error:', error);
 
-    if(isPendingGetSnapshot || isPendingFetchFeeds) {
-      return <LoadingIndicator />;
-    }
+    // if(isPendingGetSnapshot || isPendingFetchFeeds) {
+    //   return <LoadingIndicator />;
+    // }
 
     if(!hasFeedsInSnapshot) {
       return (

@@ -9,9 +9,7 @@ const initialState = {
   snapshot: {},
   feeds: [],
   categories: {},
-  hasFeedsInSnapshot: false,
-  isPendingGetSnapshot: false,
-  isPendingFetchFeeds: false,
+  hasFeedsInSnapshot: true,
   isPendingPullRefresh: false,
   error: '',
 };
@@ -23,7 +21,7 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_GET_SNAPSHOT.PENDING:
       return {
         ...state,
-        isPendingGetSnapshot: true,
+        isPendingPullRefresh: true,
       };
     case SYSTEM_GET_SNAPSHOT.SUCCESS:
       return {
@@ -31,29 +29,29 @@ export const feedReducer = (state = initialState, action = {}) => {
         snapshot: action.payload,
         hasFeedsInSnapshot: action.hasFeedsInSnapshot,
         categories: action.payload.categories,
-        isPendingGetSnapshot: false,
+        isPendingPullRefresh: true,
       };
     case SYSTEM_GET_SNAPSHOT.ERROR:
       return {
         ...state,
-        isPendingGetSnapshot: false,
+        isPendingPullRefresh: false,
         error: action.error,
       };
     case SYSTEM_GET_FEEDS.PENDING:
       return {
         ...state,
-        isPendingFetchFeeds: true,
+        isPendingPullRefresh: true,
       };
     case SYSTEM_GET_FEEDS.SUCCESS:
       return {
         ...state,
         feeds: action.payload,
-        isPendingFetchFeeds: false,
+        isPendingPullRefresh: false,
       };
     case SYSTEM_GET_FEEDS.ERROR:
       return {
         ...state,
-        isPendingFetchFeeds: false,
+        isPendingPullRefresh: false,
         error: action.error,
       };
     case USER_PULL_REFRESH.PENDING:

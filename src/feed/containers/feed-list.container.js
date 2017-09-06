@@ -18,8 +18,6 @@ const mapStateToProps = state => ({
   feeds: state.feed.feeds,
   categories: state.feed.categories,
   hasFeedsInSnapshot: state.feed.hasFeedsInSnapshot,
-  isPendingGetSnapshot: state.feed.isPendingGetSnapshot,
-  isPendingFetchFeeds: state.feed.isPendingFetchFeeds,
   isPendingPullRefresh: state.feed.isPendingPullRefresh,
   error: '',
 });
