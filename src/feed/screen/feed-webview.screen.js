@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  iconDisabled: {
+    color: '#d5d5d5',
+  },
   refreshIcon: {
     position: 'relative',
     top: 1,
@@ -56,7 +59,7 @@ class FeedWebView extends Component {
       },
       {
         // Android only:
-        dialogTitle: 'Android dialog',
+        // dialogTitle: 'Android dialog',
         // iOS only:
         // excludedActivityTypes: [
         //   'com.apple.UIKit.activity.PostToTwitter'
@@ -110,13 +113,13 @@ class FeedWebView extends Component {
             name='ios-arrow-back'
             type='ionicon'
             size={30}
-            iconStyle={styles.iconBase}
+            iconStyle={[styles.iconBase, !this.state.canGoBack && styles.iconDisabled]}
             onPress={this._goBack} />
           <Icon
             name='ios-arrow-forward'
             type='ionicon'
             size={30}
-            iconStyle={styles.iconBase}
+            iconStyle={[styles.iconBase, !this.state.canGoForward && styles.iconDisabled]}
             onPress={this._goForward} />
           <Icon
             name='ios-refresh'
