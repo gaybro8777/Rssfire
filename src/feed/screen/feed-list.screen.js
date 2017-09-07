@@ -3,9 +3,16 @@ import { ActivityIndicator, FlatList, View } from 'react-native';
 
 import { NoFeedNotification, FeedItem } from '../../components/index';
 
+const ITEMS_PER_PAGE = 10;
+
 class FeedList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      items: [],
+      page: 1,
+    };
   }
 
   _moveToSubscribeView = () => {
@@ -17,6 +24,26 @@ class FeedList extends Component {
     const { snapshot, isPendingPullRefresh } = this.props;
     if(!isPendingPullRefresh) {
       this.props.refreshFeedsByDispatch(snapshot.feeds);
+    }
+  }
+
+  _loadRenderItems = () => {
+    console.log(this.onEndReachedCalledDuringMomentum);
+    if (!this.onEndReachedCalledDuringMomentum) {
+      const { feeds } = this.props;
+      const clone = feeds.concat();
+      const { items, page } = this.state;
+
+      const start = page * ITEMS_PER_PAGE; // 10
+      const end = (page + 1) * ITEMS_PER_PAGE; // 20
+      const newData = clone.slice(start, end);
+
+      this.setState({
+        items: [...items, ...newData],
+        page: page + 1,
+      });
+
+      this.onEndReachedCalledDuringMomentum = true;
     }
   }
 
@@ -40,6 +67,18 @@ class FeedList extends Component {
 
   componentDidMount() {
 
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const { feeds } = nextProps;
+    const clone = feeds.concat();
+
+    // 0-9
+    if(clone.length > 0 && nextState.items.length <= 0) {
+      this.setState({
+        items: clone.splice(0, ITEMS_PER_PAGE),
+      });
+    }
   }
 
   _keyExtractor = (item, index) => index;
@@ -72,10 +111,7 @@ class FeedList extends Component {
     // console.log('Has feeds', hasFeedsInSnapshot);
     // console.log('Feeds', feeds);
     // console.log('Error:', error);
-
-    // if(isPendingGetSnapshot || isPendingFetchFeeds) {
-    //   return <LoadingIndicator />;
-    // }
+    console.log('Items:', this.state.items.length);
 
     if(!hasFeedsInSnapshot) {
       return (
@@ -87,11 +123,14 @@ class FeedList extends Component {
 
     return (
       <FlatList
-        data={feeds}
+        data={this.state.items}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}
         refreshing={isPendingPullRefresh}
         onRefresh={this._pullRefresh}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => this._loadRenderItems()}
+        onMomentumScrollBegin={()=> { this.onEndReachedCalledDuringMomentum = false; }}
       />
     );
   }
