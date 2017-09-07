@@ -34,8 +34,8 @@ class FeedList extends Component {
       const clone = feeds.concat();
       const { items, page } = this.state;
 
-      const start = page * ITEMS_PER_PAGE; // 10
-      const end = (page + 1) * ITEMS_PER_PAGE; // 20
+      const start = page * ITEMS_PER_PAGE;
+      const end = (page + 1) * ITEMS_PER_PAGE;
       const newData = clone.slice(start, end);
 
       this.setState({
@@ -73,7 +73,6 @@ class FeedList extends Component {
     const { feeds } = nextProps;
     const clone = feeds.concat();
 
-    // 0-9
     if(clone.length > 0 && nextState.items.length <= 0) {
       this.setState({
         items: clone.splice(0, ITEMS_PER_PAGE),
@@ -111,7 +110,6 @@ class FeedList extends Component {
     // console.log('Has feeds', hasFeedsInSnapshot);
     // console.log('Feeds', feeds);
     // console.log('Error:', error);
-    console.log('Items:', this.state.items.length);
 
     if(!hasFeedsInSnapshot) {
       return (
