@@ -28,7 +28,6 @@ class FeedList extends Component {
   }
 
   _loadRenderItems = () => {
-    console.log(this.onEndReachedCalledDuringMomentum);
     if (!this.onEndReachedCalledDuringMomentum) {
       const { feeds } = this.props;
       const clone = feeds.concat();
