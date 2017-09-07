@@ -91,8 +91,6 @@ const sortFeed = parsedData => {
             feedItem['link'] = item.children[0].value;
             break;
           case 'pubDate':
-            feedItem['pubDate'] = Date.parse(item.children[0].value);
-            break;
           case 'dc:date':
             feedItem['pubDate'] = Date.parse(item.children[0].value);
             break;
