@@ -11,21 +11,25 @@ import {
 
 function* getSnapshot(action) {
   try {
-    const payload = yield getSnapshotExec(action);
-    if(payload) {
-      const hasFeedsInSnapshot = payload.hasChild('feeds');
+    const snapshot = yield getSnapshotExec(action);
+    const payload = snapshot.val();
+
+    if (payload !== null) {
+      const hasFeedsInSnapshot = snapshot.hasChild('feeds');
 
       // Success get database from firebase
-      yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload: payload.val(), hasFeedsInSnapshot });
+      yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload, hasFeedsInSnapshot });
 
       if(hasFeedsInSnapshot) {
-        yield put({ type: SYSTEM_GET_FEEDS.PENDING, feeds: payload.val().feeds });
+        console.log('# getSnapshot: put', SYSTEM_GET_FEEDS.PENDING);
+        yield put({ type: SYSTEM_GET_FEEDS.PENDING, feeds: payload.feeds });
       }
 
     } else {
-      yield put({ type: SYSTEM_GET_SNAPSHOT.ERROR, error: 'There\'s no data.' });
+      yield put({ type: SYSTEM_GET_SNAPSHOT.ERROR, error: 'There\'s no user data.' });
     }
   } catch(error) {
+    console.warn('# getSnapshot:', error);
     yield put({ type: SYSTEM_GET_SNAPSHOT.ERROR, error: error.message });
   }
 }
