@@ -28,6 +28,7 @@ class Drawer extends Component {
   props: {
     navigation: Object,
     snapshot: Object,
+    tryLogoutByDispatch: Function,
   };
 
   render() {
@@ -62,6 +63,7 @@ class Drawer extends Component {
           textStyle={styles.logoutText}
           buttonStyle={styles.logoutButton}
           title='Logout'
+          onPress={() => this.props.tryLogoutByDispatch(navigation)}
         />
       </View>
     );
