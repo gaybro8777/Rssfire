@@ -1,6 +1,6 @@
 import XmlReader from 'xml-reader';
 
-export const xmlParser = xml => {
+export const xmlParser = (xml, url) => {
   const reader = XmlReader.create();
   let parsedData = [];
 
@@ -8,7 +8,7 @@ export const xmlParser = xml => {
     let tempData = data.children[0].children;
     while(true) {
       if(tempData.length > 1) {
-        parsedData = sortFeed(tempData);
+        parsedData = sortFeed(tempData, url);
         break;
       } else {
         tempData = tempData[0].children;
@@ -58,7 +58,7 @@ const entitiesDecoder = str => {
   });
 }
 
-const sortFeed = parsedData => {
+const sortFeed = (parsedData, url) => {
   let imagePaths = null;
   let siteName = null;
   let withoutTags = null;
@@ -96,6 +96,10 @@ const sortFeed = parsedData => {
             break;
           case 'description':
           case 'content:encoded':
+            if(item.children.length >= 0) {
+              break;
+            }
+
             withoutTags = entitiesDecoder(item.children[0].value);
             imagePaths = getImagePath(withoutTags);
             if(imagePaths !== null && feedItem['image'] !== null) {
@@ -116,6 +120,7 @@ const sortFeed = parsedData => {
       });
 
       feedItem['siteName'] = (siteName === null) ? ' ' : siteName;
+      feedItem['feedURL'] = url;
 
       // console.log('Feed Item:', feedItem);
       feeds.push(feedItem);
