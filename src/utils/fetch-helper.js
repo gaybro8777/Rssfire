@@ -1,18 +1,28 @@
-export const fetchHelper = url => {
-  // url = url.replace(/^http:\/\//i, 'https://');
+import { xmlParser } from './index';
 
-  const API = 'https://query.yahooapis.com/v1/public/yql?q=';
+const API = 'https://query.yahooapis.com/v1/public/yql?q=';
+
+export const fetchHelper = url => {
 
   if(!url.indexOf('http://')) {
     let yqlUrl = encodeURIComponent(`select * from xml where url='${url}'`);
     url = `${API}${yqlUrl}`;
   }
 
-  return fetch(url)
+  let fetchTimeout = new Promise((resolve, reject) => {
+    setTimeout(reject, 1000, 'Request Timed Out');
+  });
+
+  let fetchRequest = fetch(url)
     .then(statusHelper)
-    .then(res => res.text())
-    .then(payload => ({ payload }))
-    .catch(error => ({ error }));
+    .then(res => res.text());
+    // .catch(error => ({ error }))
+
+  return Promise
+      .race([fetchTimeout, fetchRequest])
+      .then(xml => xmlParser(xml))
+      .then(payload => ({ payload }))
+      .catch(error => ({ error }));
 };
 
 const statusHelper = res => {
