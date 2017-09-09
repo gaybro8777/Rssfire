@@ -3,6 +3,7 @@ import { xmlParser } from './index';
 const API = 'https://query.yahooapis.com/v1/public/yql?q=';
 
 export const fetchHelper = url => {
+  let orgURL = url;
 
   if(!url.indexOf('http://')) {
     let yqlUrl = encodeURIComponent(`select * from xml where url='${url}'`);
@@ -20,7 +21,7 @@ export const fetchHelper = url => {
 
   return Promise
       .race([fetchTimeout, fetchRequest])
-      .then(xml => xmlParser(xml))
+      .then(xml => xmlParser(xml, orgURL))
       .then(payload => ({ payload }))
       .catch(error => ({ error }));
 };
