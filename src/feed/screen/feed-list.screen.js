@@ -61,12 +61,13 @@ class FeedList extends Component {
 
   componentWillMount() {
     const { uid } = this.props;
+
+    this.setState({
+      items: [],
+      page: 1,
+    });
     // pre-fetch data from firebase
     this.props.getSnapshotByDispatch(uid);
-  }
-
-  componentDidMount() {
-
   }
 
   componentWillUpdate(nextProps, nextState) {
