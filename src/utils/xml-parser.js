@@ -96,7 +96,7 @@ const sortFeed = (parsedData, url) => {
             break;
           case 'description':
           case 'content:encoded':
-            if(item.children.length >= 0) {
+            if(item.children.length <= 0) {
               break;
             }
 
