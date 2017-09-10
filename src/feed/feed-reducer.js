@@ -21,6 +21,7 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_GET_SNAPSHOT.PENDING:
       return {
         ...state,
+        feeds: [],
         isPendingPullRefresh: true,
       };
     case SYSTEM_GET_SNAPSHOT.SUCCESS:
