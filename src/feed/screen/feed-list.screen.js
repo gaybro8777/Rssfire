@@ -51,6 +51,7 @@ class FeedList extends Component {
     uid: String,
     snapshot: Object,
     feeds: Array,
+    categories: Object,
     hasFeedsInSnapshot: Boolean,
     isPendingPullRefresh: Boolean,
     error: String,
@@ -100,6 +101,7 @@ class FeedList extends Component {
       uid,
       snapshot,
       feeds,
+      categories,
       hasFeedsInSnapshot,
       isPendingPullRefresh,
       error,
@@ -109,6 +111,7 @@ class FeedList extends Component {
     // console.log('Has feeds', hasFeedsInSnapshot);
     // console.log('Feeds', feeds);
     // console.log('Error:', error);
+    // console.log('Categories', categories);
 
     if(!hasFeedsInSnapshot) {
       return (
