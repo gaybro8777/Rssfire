@@ -37,6 +37,7 @@ class Subscribe extends Component {
   props: {
     navigation: Object,
     uid: String,
+    categories: Object,
     isPendingWriteFirebase: Boolean,
     error: String,
     setFeedByDispatch: Function,
@@ -46,6 +47,7 @@ class Subscribe extends Component {
     const {
       navigation,
       uid,
+      categories,
       isPendingWriteFirebase,
       error,
     } = this.props;

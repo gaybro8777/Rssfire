@@ -9,6 +9,7 @@ import { USER_TOUCH_ADD_FEED } from '../subscribe-type';
 // set state from reducer
 const mapStateToProps = state => ({
   uid: state.auth.uid,
+  categories: state.feed.categories,
   isPendingWriteFirebase: state.subscribe.isPendingWriteFirebase,
   error: '',
 });
