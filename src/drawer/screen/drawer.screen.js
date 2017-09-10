@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   drawerContainer: {
     paddingTop: 20,
+    paddingBottom: 20,
   },
   logoutButton: {
     marginTop: 15,
@@ -40,32 +41,34 @@ class Drawer extends Component {
     const hasFeeds =  snapshot.hasOwnProperty('feeds');
 
     return (
-      <View style={styles.drawerContainer}>
-        {hasFeeds &&
-          <List>
-          {
-            Object.keys(snapshot.feeds).map((key, index) => {
-              const title = snapshot.feeds[key]['title'];
-              const url = snapshot.feeds[key]['url'];
+      <ScrollView>
+        <View style={styles.drawerContainer}>
+          {hasFeeds &&
+            <List>
+            {
+              Object.keys(snapshot.feeds).map((key, index) => {
+                const title = snapshot.feeds[key]['title'];
+                const url = snapshot.feeds[key]['url'];
 
-              return (
-                <ListItem
-                  key={index}
-                  title={title}
-                  onPress={() => console.log(url)}
-                />
-              )
-            })
+                return (
+                  <ListItem
+                    key={index}
+                    title={title}
+                    onPress={() => console.log(url)}
+                  />
+                )
+              })
+            }
+            </List>
           }
-          </List>
-        }
-        <Button
-          textStyle={styles.logoutText}
-          buttonStyle={styles.logoutButton}
-          title='Logout'
-          onPress={() => this.props.tryLogoutByDispatch(navigation)}
-        />
-      </View>
+          <Button
+            textStyle={styles.logoutText}
+            buttonStyle={styles.logoutButton}
+            title='Logout'
+            onPress={() => this.props.tryLogoutByDispatch(navigation)}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
