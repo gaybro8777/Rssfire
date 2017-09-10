@@ -37,52 +37,40 @@ function* getSnapshot(action) {
 function* getFeed(action) {
   // console.log('Action:', action);
   // {type: "SYSTEM_GET_FEEDS_PENDING", feeds: {...}, @@redux-saga/SAGA_ACTION: true}
+  try {
+    const feedsArray = yield call(getFeedExec, action.feeds);
 
-  const xmlRequest = yield call(getFeedExec, action.feeds);
-  // [
-  //   {payload: "..."},
-  //   {payload: "..."},
-  //   {error: "..."}
-  // ]
-
-  // console.log('XML:', xmlRequest);
-
-  const parsedArray = yield all(
-    xmlRequest.map(val => {
-      if(val.payload) {
-        return call(xmlParser, val.payload);
-      } else {
-        return null;
+    let unsortedFeeds = [];
+    feedsArray.map(feed => {
+      if(feed.payload) {
+        unsortedFeeds.push(...feed.payload);
       }
-    })
-  );
+    });
 
-  // console.log('Parsed Array:', parsedArray);
+    // console.log('Un Sorted Feeds:', unsortedFeeds);
 
-  let unsortedFeeds = [];
+    const sortedFeeds = unsortedFeeds.sort((a,b) => {
+      if(a.pubDate === undefined) return 1;
+      if(a.pubDate > b.pubDate) return -1;
+      if(a.pubDate < b.pubDate) return 1;
+      return 0;
+    });
 
-  parsedArray.forEach(val => {
-    if(val !== null){
-      return unsortedFeeds.push(...val);
+    // console.log('Feeds:', sortedFeeds);
+
+    if(action.type == 'SYSTEM_GET_FEEDS_PENDING') {
+      yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: sortedFeeds });
+    } else {
+      yield put({ type: USER_PULL_REFRESH.SUCCESS, payload: sortedFeeds });
     }
-  });
 
-  const sortedFeeds = unsortedFeeds.sort((a,b) => {
-    if(a.pubDate > b.pubDate) return -1;
-    if(a.pubDate < b.pubDate) return 1;
-    return 0;
-  });
-
-  // console.log(sortedFeeds);
-
-  if(action.type == 'SYSTEM_GET_FEEDS_PENDING') {
-    yield put({ type: SYSTEM_GET_FEEDS.SUCCESS, payload: sortedFeeds });
-  } else {
-    yield put({ type: USER_PULL_REFRESH.SUCCESS, payload: sortedFeeds });
+  } catch (error) {
+    if(action.type == 'SYSTEM_GET_FEEDS_PENDING') {
+      yield put({ type: SYSTEM_GET_FEEDS.ERROR, error });
+    } else {
+      yield put({ type: USER_PULL_REFRESH.ERROR, error });
+    }
   }
-
-  // TODO
-  // error handling
 }
 
 // Exec
