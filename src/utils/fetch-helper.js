@@ -1,6 +1,7 @@
 import { xmlParser } from './index';
 
 const API = 'https://query.yahooapis.com/v1/public/yql?q=';
+const REQUEST_TIME = 1500;
 
 export const fetchHelper = url => {
   let orgURL = url;
@@ -11,7 +12,7 @@ export const fetchHelper = url => {
   }
 
   let fetchTimeout = new Promise((resolve, reject) => {
-    setTimeout(reject, 1000, 'Request Timed Out');
+    setTimeout(reject, REQUEST_TIME, new Error(`Request Timed Out: ${orgURL}`));
   });
 
   let fetchRequest = fetch(url)
