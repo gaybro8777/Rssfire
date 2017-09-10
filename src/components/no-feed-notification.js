@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 
+import { colors } from '../utils/index';
+
 const styles = StyleSheet.create({
   fullViewContainer: {
     flex: 1,
@@ -11,21 +13,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonStyle: {
+    width: '100%',
     marginTop: 10,
     marginBottom: 10,
+  },
+  largeText: {
+    fontSize: 22,
   },
 });
 
 export const NoFeedNotification = ({onPress}) =>
-  <LinearGradient colors={['#2980b9', '#2c3e50']} style={styles.fullViewContainer}>
-    <View>
-      <Text>There is no feed.</Text>
+    <View style={styles.fullViewContainer}>
+      <Text style={styles.largeText}>There is no feed.</Text>
       <Button
+        backgroundColor={`${colors.accentColor}`}
         buttonStyle={styles.buttonStyle}
         onPress={onPress}
-        fontSize={18}
+        fontSize={19}
         underlayColor="transparent"
         title="ADD FEED"
       />
-    </View>
-  </LinearGradient>;
+    </View>;
