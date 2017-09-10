@@ -76,13 +76,9 @@ export default {
   setDefaultRecord(uid) {
     const ref = firebase.database().ref();
 
-    return ref.child(`users/${uid}`).set({
-      categories: {
-        1: {
-          name: 'ALL',
-        },
-      },
-    });
+    const obj = { name: 'ALL' };
+
+    return ref.child(`users/${uid}/categories`).push(obj);
   },
 
   pushFeedRecord(uid, obj) {
