@@ -1,6 +1,7 @@
 import {
   SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
+  SYSTEM_FILTER_FEEDS,
   USER_PULL_REFRESH,
   USER_TOUCH_FEED_ITEM
 } from './feed-type';
@@ -8,8 +9,11 @@ import {
 const initialState = {
   snapshot: {},
   feeds: [],
+  filter: null,
+  filteredFeeds: [],
   categories: {},
   hasFeedsInSnapshot: true,
+  isUpdated: false,
   isPendingPullRefresh: false,
   error: '',
 };
@@ -21,7 +25,6 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_GET_SNAPSHOT.PENDING:
       return {
         ...state,
-        feeds: [],
         isPendingPullRefresh: true,
       };
     case SYSTEM_GET_SNAPSHOT.SUCCESS:
@@ -47,11 +50,33 @@ export const feedReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         feeds: action.payload,
-        isPendingPullRefresh: false,
+        isPendingPullRefresh: true,
       };
     case SYSTEM_GET_FEEDS.ERROR:
       return {
         ...state,
+        isPendingPullRefresh: false,
+        error: action.error,
+      };
+    case SYSTEM_FILTER_FEEDS.PENDING:
+      return {
+        ...state,
+        filter: action.filter,
+        filteredFeeds: [],
+        isUpdated: true,
+        isPendingPullRefresh: true,
+      };
+    case SYSTEM_FILTER_FEEDS.SUCCESS:
+      return {
+        ...state,
+        filteredFeeds: action.payload,
+        isUpdated: false,
+        isPendingPullRefresh: false,
+      };
+    case SYSTEM_FILTER_FEEDS.ERROR:
+      return {
+        ...state,
+        isUpdated: false,
         isPendingPullRefresh: false,
         error: action.error,
       };
@@ -64,7 +89,7 @@ export const feedReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         feeds: action.payload,
-        isPendingPullRefresh: false,
+        isPendingPullRefresh: true,
       };
     case USER_PULL_REFRESH.ERROR:
       return {
