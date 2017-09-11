@@ -7,6 +7,7 @@ import { FeedListScreen } from '../screen/feed-list.screen';
 import {
   SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
+  SYSTEM_FILTER_FEEDS,
   USER_PULL_REFRESH,
   USER_TOUCH_FEED_ITEM
 } from '../feed-type';
@@ -16,9 +17,12 @@ const mapStateToProps = state => ({
   uid: state.auth.uid,
   snapshot: state.feed.snapshot,
   feeds: state.feed.feeds,
+  filter: state.feed.filter,
+  filteredFeeds: state.feed.filteredFeeds,
   categories: state.feed.categories,
   hasFeedsInSnapshot: state.feed.hasFeedsInSnapshot,
   isPendingPullRefresh: state.feed.isPendingPullRefresh,
+  isUpdated: state.feed.isUpdated,
   error: '',
 });
 
