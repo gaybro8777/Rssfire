@@ -12,6 +12,7 @@ const initialState = {
   filter: null,
   filteredFeeds: [],
   categories: {},
+  hasGetSnapshot: false,
   hasFeedsInSnapshot: true,
   isUpdated: false,
   isPendingPullRefresh: false,
@@ -25,12 +26,14 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_GET_SNAPSHOT.PENDING:
       return {
         ...state,
+        hasGetSnapshot: false,
         isPendingPullRefresh: true,
       };
     case SYSTEM_GET_SNAPSHOT.SUCCESS:
       return {
         ...state,
         snapshot: action.payload,
+        hasGetSnapshot: true,
         hasFeedsInSnapshot: action.hasFeedsInSnapshot,
         categories: action.payload.categories,
         isPendingPullRefresh: true,
@@ -38,6 +41,7 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_GET_SNAPSHOT.ERROR:
       return {
         ...state,
+        hasGetSnapshot: false,
         isPendingPullRefresh: false,
         error: action.error,
       };
