@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 // import view from screen directory
 import { DrawerScreen } from '../screen/drawer.screen';
-
-import { USER_TOUCH_LOGOUT } from '../drawer-type';
+import { USER_TOUCH_LOGOUT, USER_TOUCH_FEED } from '../drawer-type';
 
 // set state from reducer
 const mapStateToProps = state => ({
@@ -18,6 +17,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: USER_TOUCH_LOGOUT.PENDING,
       navigation
+    })
+  },
+  getFilteredFeedByDispatch: (navigation, url) => {
+    dispatch({
+      type: USER_TOUCH_FEED.PENDING,
+      navigation,
+      url
     })
   },
 });

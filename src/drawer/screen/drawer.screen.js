@@ -30,6 +30,7 @@ class Drawer extends Component {
     navigation: Object,
     snapshot: Object,
     tryLogoutByDispatch: Function,
+    getFilteredFeedByDispatch: Function,
   };
 
   render() {
@@ -45,6 +46,11 @@ class Drawer extends Component {
         <View style={styles.drawerContainer}>
           {hasFeeds &&
             <List>
+              <ListItem
+                key="ALL"
+                title="ALL"
+                onPress={() => this.props.getFilteredFeedByDispatch(navigation, null)}
+              />
             {
               Object.keys(snapshot.feeds).map((key, index) => {
                 const title = snapshot.feeds[key]['title'];
@@ -54,7 +60,7 @@ class Drawer extends Component {
                   <ListItem
                     key={index}
                     title={title}
-                    onPress={() => console.log(url)}
+                    onPress={() => this.props.getFilteredFeedByDispatch(navigation, url)}
                   />
                 )
               })
