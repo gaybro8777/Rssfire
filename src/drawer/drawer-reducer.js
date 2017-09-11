@@ -1,4 +1,4 @@
-import { USER_TOUCH_LOGOUT } from './drawer-type';
+import { USER_TOUCH_LOGOUT, USER_TOUCH_FEED } from './drawer-type';
 
 const initialState = {
   isPendingLogout: false,
@@ -23,6 +23,15 @@ export const drawerReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isPendingLogout: false,
+        error: action.error,
+      };
+    case USER_TOUCH_FEED.PENDING:
+      return state;
+    case USER_TOUCH_FEED.SUCCESS:
+      return state;
+    case USER_TOUCH_FEED.ERROR:
+      return {
+        ...state,
         error: action.error,
       };
     default:
