@@ -12,6 +12,7 @@ class FeedList extends Component {
     this.state = {
       items: [],
       page: 1,
+      isInit: true,
     };
   }
 
@@ -23,6 +24,8 @@ class FeedList extends Component {
   _pullRefresh = () => {
     const { snapshot, isPendingPullRefresh } = this.props;
     if(!isPendingPullRefresh) {
+      // TODO
+      // state item will be empty
       this.props.refreshFeedsByDispatch(snapshot.feeds);
     }
   }
@@ -53,6 +56,7 @@ class FeedList extends Component {
     feeds: Array,
     filteredFeeds: Array,
     categories: Object,
+    hasGetSnapshot: Boolean,
     hasFeedsInSnapshot: Boolean,
     isPendingPullRefresh: Boolean,
     isUpdated: Boolean,
@@ -62,20 +66,25 @@ class FeedList extends Component {
   };
 
   componentWillMount() {
-    const { uid } = this.props;
-
-    this.setState({
-      items: [],
-      page: 1,
-    });
+    const { uid, hasGetSnapshot } = this.props;
     // pre-fetch data from firebase
-    this.props.getSnapshotByDispatch(uid);
+    if(!hasGetSnapshot) {
+      this.props.getSnapshotByDispatch(uid);
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const { filteredFeeds } = nextProps;
+    const { filteredFeeds, isUpdated } = nextProps;
     const clone = filteredFeeds.concat();
-    
+
+    if(isUpdated && nextState.isInit) {
+      this.setState({
+        items: [],
+        page: 1,
+        isInit: false,
+      });
+    }
+
     if(clone.length > 0 && nextState.items.length <= 0) {
       this.setState({
         items: clone.splice(0, ITEMS_PER_PAGE),
