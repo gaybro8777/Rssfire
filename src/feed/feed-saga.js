@@ -5,6 +5,7 @@ import { fetchHelper, xmlParser } from '../utils/index';
 import {
   SYSTEM_GET_SNAPSHOT,
   SYSTEM_GET_FEEDS,
+  SYSTEM_FILTER_FEEDS,
   USER_PULL_REFRESH,
   USER_TOUCH_FEED_ITEM
 } from './feed-type';
@@ -21,7 +22,7 @@ function* getSnapshot(action) {
       yield put({ type: SYSTEM_GET_SNAPSHOT.SUCCESS, payload, hasFeedsInSnapshot });
 
       if(hasFeedsInSnapshot) {
-        console.log('# getSnapshot: put', SYSTEM_GET_FEEDS.PENDING);
+        // console.log('# getSnapshot: put', SYSTEM_GET_FEEDS.PENDING);
         yield put({ type: SYSTEM_GET_FEEDS.PENDING, feeds: payload.feeds });
       }
 
@@ -64,12 +65,39 @@ function* getFeed(action) {
       yield put({ type: USER_PULL_REFRESH.SUCCESS, payload: sortedFeeds });
     }
 
+    const filterState = state => state.feed.filter;
+    const filter = yield select(filterState);
+    yield put({ type: SYSTEM_FILTER_FEEDS.PENDING, filter });
+
   } catch (error) {
     if(action.type == 'SYSTEM_GET_FEEDS_PENDING') {
       yield put({ type: SYSTEM_GET_FEEDS.ERROR, error });
     } else {
       yield put({ type: USER_PULL_REFRESH.ERROR, error });
     }
+  }
+}
+
+function* filterFeed(action) {
+  try {
+    const feedsState = state => state.feed.feeds;
+    const feeds = yield select(feedsState);
+
+    if(feeds.length > 0) {
+      if(action.filter !== null) {
+        const filteredFeed = feeds.filter( item => {
+          return (item.feedURL === action.filter)
+        });
+        yield put({ type: SYSTEM_FILTER_FEEDS.SUCCESS, payload: filteredFeed });
+      } else {
+        yield put({ type: SYSTEM_FILTER_FEEDS.SUCCESS, payload: feeds });
+      }
+    } else {
+      yield put({ type: SYSTEM_FILTER_FEEDS.ERROR, error: 'no feeds.' });
+    }
+
+  } catch(error) {
+      yield put({ type: SYSTEM_FILTER_FEEDS.ERROR, error: error.message });
   }
 }
 
@@ -90,5 +118,6 @@ function* getFeedExec(feeds) {
 export const feedSaga = [
   takeEvery(SYSTEM_GET_SNAPSHOT.PENDING, getSnapshot),
   takeEvery(SYSTEM_GET_FEEDS.PENDING, getFeed),
+  takeEvery(SYSTEM_FILTER_FEEDS.PENDING, filterFeed),
   takeEvery(USER_PULL_REFRESH.PENDING, getFeed)
 ];
