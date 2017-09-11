@@ -18,11 +18,11 @@ function* pushFeedToFirebase(action) {
 
     const result = yield pushFeedToFirebaseExec(action.uid, feedObj);
 
-    // yield put({ type: SYSTEM_GET_SNAPSHOT.PENDING, uid: action.uid });
-
     yield put({ type: USER_TOUCH_ADD_FEED.SUCCESS });
 
     resetNavigation('Home', action.navigation);
+
+    yield put({ type: SYSTEM_GET_SNAPSHOT.PENDING, uid: action.uid });
 
   } catch(error) {
     yield put({ type: USER_TOUCH_ADD_FEED.ERROR, error: error.message });
