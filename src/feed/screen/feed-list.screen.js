@@ -29,8 +29,8 @@ class FeedList extends Component {
 
   _loadRenderItems = () => {
     if (!this.onEndReachedCalledDuringMomentum) {
-      const { feeds } = this.props;
-      const clone = feeds.concat();
+      const { filteredFeeds } = this.props;
+      const clone = filteredFeeds.concat();
       const { items, page } = this.state;
 
       const start = page * ITEMS_PER_PAGE;
@@ -51,9 +51,11 @@ class FeedList extends Component {
     uid: String,
     snapshot: Object,
     feeds: Array,
+    filteredFeeds: Array,
     categories: Object,
     hasFeedsInSnapshot: Boolean,
     isPendingPullRefresh: Boolean,
+    isUpdated: Boolean,
     error: String,
     getSnapshotByDispatch: Function,
     refreshFeedsByDispatch: Function,
@@ -71,9 +73,9 @@ class FeedList extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const { feeds } = nextProps;
-    const clone = feeds.concat();
-
+    const { filteredFeeds } = nextProps;
+    const clone = filteredFeeds.concat();
+    
     if(clone.length > 0 && nextState.items.length <= 0) {
       this.setState({
         items: clone.splice(0, ITEMS_PER_PAGE),
@@ -102,6 +104,8 @@ class FeedList extends Component {
       uid,
       snapshot,
       feeds,
+      filter,
+      filteredFeeds,
       categories,
       hasFeedsInSnapshot,
       isPendingPullRefresh,
