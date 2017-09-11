@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   filter: state.feed.filter,
   filteredFeeds: state.feed.filteredFeeds,
   categories: state.feed.categories,
+  hasGetSnapshot: state.feed.hasGetSnapshot,
   hasFeedsInSnapshot: state.feed.hasFeedsInSnapshot,
   isPendingPullRefresh: state.feed.isPendingPullRefresh,
   isUpdated: state.feed.isUpdated,
