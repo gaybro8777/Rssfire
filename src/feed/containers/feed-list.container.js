@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
   hasGetSnapshot: state.feed.hasGetSnapshot,
   hasFeedsInSnapshot: state.feed.hasFeedsInSnapshot,
   isPendingPullRefresh: state.feed.isPendingPullRefresh,
-  isUpdated: state.feed.isUpdated,
   error: '',
 });
 
@@ -33,6 +32,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: SYSTEM_GET_SNAPSHOT.PENDING,
       uid
+    })
+  },
+  getFilteredFeedsByDispatch: () => {
+    dispatch({
+      type: SYSTEM_FILTER_FEEDS.PENDING
     })
   },
   refreshFeedsByDispatch: snapshot => {
