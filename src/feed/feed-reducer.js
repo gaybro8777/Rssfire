@@ -9,12 +9,10 @@ import {
 const initialState = {
   snapshot: {},
   feeds: [],
-  filter: null,
   filteredFeeds: [],
   categories: {},
   hasGetSnapshot: false,
   hasFeedsInSnapshot: true,
-  isUpdated: false,
   isPendingPullRefresh: false,
   error: '',
 };
@@ -65,22 +63,18 @@ export const feedReducer = (state = initialState, action = {}) => {
     case SYSTEM_FILTER_FEEDS.PENDING:
       return {
         ...state,
-        filter: action.filter,
         filteredFeeds: [],
-        isUpdated: true,
         isPendingPullRefresh: true,
       };
     case SYSTEM_FILTER_FEEDS.SUCCESS:
       return {
         ...state,
         filteredFeeds: action.payload,
-        isUpdated: false,
         isPendingPullRefresh: false,
       };
     case SYSTEM_FILTER_FEEDS.ERROR:
       return {
         ...state,
-        isUpdated: false,
         isPendingPullRefresh: false,
         error: action.error,
       };
