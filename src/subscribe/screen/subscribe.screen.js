@@ -71,20 +71,13 @@ class Subscribe extends Component {
           onChangeText={url => this.setState({ url })}
           value={this.state.url}
         />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Feed Category"
-          placeholderTextColor="#c8c8c8"
-          onChangeText={category => this.setState({ category })}
-          value={this.state.category}
-        />
         <Button
           buttonStyle={styles.buttonStyle}
           // textStyle={}
           containerViewStyle={{ width: '90%' }}
           title="ADD FEED"
           onPress={
-            () => this.props.setFeedByDispatch(navigation, uid, this.state.title, this.state.url, this.state.category)
+            () => this.props.setFeedByDispatch(navigation, uid, this.state.title, this.state.url, null)
           }
         />
       </KeyboardAvoidingView>
