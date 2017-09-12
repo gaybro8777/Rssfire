@@ -2,6 +2,7 @@ import { USER_TOUCH_LOGOUT, USER_TOUCH_FEED } from './drawer-type';
 
 const initialState = {
   isPendingLogout: false,
+  filter: null,
   error: '',
 };
 
@@ -28,7 +29,10 @@ export const drawerReducer = (state = initialState, action = {}) => {
     case USER_TOUCH_FEED.PENDING:
       return state;
     case USER_TOUCH_FEED.SUCCESS:
-      return state;
+      return {
+        ...state,
+        filter: action.payload,
+      };
     case USER_TOUCH_FEED.ERROR:
       return {
         ...state,
