@@ -6,7 +6,9 @@ import {
   USER_SIGNUP_GOOGLE,
   USER_SIGNUP_EMAIL,
   USER_LOGIN_EMAIL,
-  USER_LOGOUT
+  USER_LOGOUT,
+  SYSTEM_ERROR_CLEANUP,
+  USER_TOUCHED_ERROR_NOTICE
 } from './auth-type';
 
 const initialState = {
@@ -106,6 +108,30 @@ export const authReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isPendingLogout: false,
+        error: action.error,
+      };
+    case SYSTEM_ERROR_CLEANUP.PENDING:
+
+    case SYSTEM_ERROR_CLEANUP.SUCCESS:
+      return {
+        ...state,
+        error: '',
+      };
+    case SYSTEM_ERROR_CLEANUP.ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
+    case USER_TOUCHED_ERROR_NOTICE.PENDING:
+
+    case USER_TOUCHED_ERROR_NOTICE.SUCCESS:
+      return {
+        ...state,
+        error: '',
+      };
+    case USER_TOUCHED_ERROR_NOTICE.ERROR:
+      return {
+        ...state,
         error: action.error,
       };
     default:
