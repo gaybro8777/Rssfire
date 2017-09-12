@@ -19,7 +19,7 @@ const initialState = {
 
 export const feedReducer = (state = initialState, action = {}) => {
   // Debug
-  console.log('Feed Reducer:', action.type);
+  // console.log('Feed Reducer:', action.type);
   switch(action.type) {
     case SYSTEM_GET_SNAPSHOT.PENDING:
       return {
