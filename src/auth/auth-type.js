@@ -15,3 +15,6 @@ export const USER_LOGIN_GOOGLE = createActionType('USER_LOGIN_GOOGLE');
 export const USER_LOGIN_EMAIL = createActionType('USER_LOGIN_EMAIL');
 
 export const USER_LOGOUT = createActionType('USER_LOGOUT');
+
+export const SYSTEM_ERROR_CLEANUP = createActionType('SYSTEM_ERROR_CLEANUP');
+export const USER_TOUCHED_ERROR_NOTICE = createActionType('USER_TOUCHED_ERROR_NOTICE');
