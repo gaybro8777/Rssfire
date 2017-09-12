@@ -18,8 +18,7 @@ function* tryLogout(action) {
 
 function* callFilterFeed(action) {
   try {
-    yield put({ type: SYSTEM_FILTER_FEEDS.PENDING, filter: action.url });
-    yield put({ type: USER_TOUCH_FEED.SUCCESS });
+    yield put({ type: USER_TOUCH_FEED.SUCCESS, payload: action.url });
     resetNavigation('Home', action.navigation);
   } catch(error) {
     yield put({ type: USER_TOUCH_FEED.ERROR, error: error.message });
