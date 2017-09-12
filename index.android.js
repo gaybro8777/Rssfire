@@ -7,4 +7,4 @@
 import { AppRegistry } from 'react-native';
 import App from './src/App';
 
-AppRegistry.registerComponent('SimpleRSSReader', () => App);
+AppRegistry.registerComponent('RssFire', () => App);
