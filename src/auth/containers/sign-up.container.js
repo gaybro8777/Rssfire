@@ -9,7 +9,12 @@ import { connect } from 'react-redux';
 import { SignUpScreen } from '../screen/sign-up.screen';
 
 // import type
-import { USER_SIGNUP_GOOGLE, USER_SIGNUP_EMAIL } from '../auth-type';
+import {
+  USER_SIGNUP_GOOGLE,
+  USER_SIGNUP_EMAIL,
+  SYSTEM_ERROR_CLEANUP,
+  USER_TOUCHED_ERROR_NOTICE
+} from '../auth-type';
 
 // set state from reducer
 const mapStateToProps = state => ({
@@ -20,7 +25,7 @@ const mapStateToProps = state => ({
 });
 
 // set dispatch to saga
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = dispatch => ({
   signUpWithGoogleByDispatch: () => {
     dispatch({
       type: USER_SIGNUP_GOOGLE.PENDING
@@ -32,6 +37,16 @@ const mapDispatchToProps = (dispatch, getState) => ({
       email,
       password,
       navigation
+    });
+  },
+  initClearErrorByDispatch: () => {
+    dispatch({
+      type: SYSTEM_ERROR_CLEANUP.PENDING
+    });
+  },
+  clearErrorByDispatch: () => {
+    dispatch({
+      type: USER_TOUCHED_ERROR_NOTICE.PENDING
     });
   },
 });

@@ -14,7 +14,9 @@ import {
   USER_LOGIN_TWITTER,
   USER_LOGIN_GOOGLE,
   USER_LOGIN_EMAIL,
-  USER_LOGOUT
+  USER_LOGOUT,
+  SYSTEM_ERROR_CLEANUP,
+  USER_TOUCHED_ERROR_NOTICE
 } from '../auth-type';
 
 // set state from reducer
@@ -38,6 +40,16 @@ const mapDispatchToProps = dispatch => ({
   logoutByDispatch: () => {
     dispatch({
       type: USER_LOGOUT.PENDING,
+    });
+  },
+  initClearErrorByDispatch: () => {
+    dispatch({
+      type: SYSTEM_ERROR_CLEANUP.PENDING
+    });
+  },
+  clearErrorByDispatch: () => {
+    dispatch({
+      type: USER_TOUCHED_ERROR_NOTICE.PENDING
     });
   },
 });
