@@ -35,7 +35,7 @@ function* getUserId(action) {
       yield put({ type: SYSTEM_AUTH_USER.SUCCESS, payload });
       resetNavigation('Home', action.navigation);
     } else {
-      yield put({ type: SYSTEM_AUTH_USER.ERROR, error: 'Can not find UID.' });
+      yield put({ type: SYSTEM_AUTH_USER.ERROR, error: '' });
       resetNavigation('SignUp', action.navigation);
     }
   } catch(error) {
