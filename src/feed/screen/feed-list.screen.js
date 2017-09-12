@@ -12,7 +12,6 @@ class FeedList extends Component {
     this.state = {
       items: [],
       page: 1,
-      isInit: true,
     };
   }
 
@@ -59,9 +58,9 @@ class FeedList extends Component {
     hasGetSnapshot: Boolean,
     hasFeedsInSnapshot: Boolean,
     isPendingPullRefresh: Boolean,
-    isUpdated: Boolean,
     error: String,
     getSnapshotByDispatch: Function,
+    getFilteredFeedsByDispatch: Function,
     refreshFeedsByDispatch: Function,
   };
 
@@ -70,26 +69,24 @@ class FeedList extends Component {
     // pre-fetch data from firebase
     if(!hasGetSnapshot) {
       this.props.getSnapshotByDispatch(uid);
+    } else {
+      this.props.getFilteredFeedsByDispatch();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { filteredFeeds } = nextProps;
+    const clone = filteredFeeds.concat();
+
+    if(clone.length > 0 && this.state.items.length <= 0) {
+      this.setState({
+        items: clone.slice(0, ITEMS_PER_PAGE)
+      });
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const { filteredFeeds, isUpdated } = nextProps;
-    const clone = filteredFeeds.concat();
 
-    if(isUpdated && nextState.isInit) {
-      this.setState({
-        items: [],
-        page: 1,
-        isInit: false,
-      });
-    }
-
-    if(clone.length > 0 && nextState.items.length <= 0) {
-      this.setState({
-        items: clone.splice(0, ITEMS_PER_PAGE),
-      });
-    }
   }
 
   _keyExtractor = (item, index) => index;
