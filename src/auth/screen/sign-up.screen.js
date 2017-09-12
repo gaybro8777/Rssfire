@@ -56,7 +56,6 @@ class SignUp extends Component {
   // Debug
   _moveToLogin = () => {
     const { navigation } = this.props;
-    // navigation.navigate('Login');
     resetNavigation('Login', navigation);
   }
 
@@ -71,11 +70,7 @@ class SignUp extends Component {
   };
 
   componentWillMount() {
-    // console.log('Exec componentWillMount');
-  }
-
-  componentDidMount() {
-    // console.log('Exec componentDidMount');
+    // console.log('# sign-up.screen: componentWillMount');
   }
 
   render() {
@@ -87,11 +82,9 @@ class SignUp extends Component {
       error,
     } = this.props;
 
-    console.log('UID:', uid);
+    // console.log('UID:', uid);
     // console.log('User: ', JSON.stringify(user));
     // console.log('Error:', error);
-
-    // console.log('Props:' + JSON.stringify(this.props));
 
     return (
       <FullViewContainer>

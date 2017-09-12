@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet, TextInput, Text, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Alert, TextInput, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { resetNavigation } from '../../utils/index';
@@ -48,7 +48,6 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      loading: false,
       email: '',
       password: ''
     };
@@ -70,11 +69,7 @@ class Login extends Component {
   };
 
   componentWillMount() {
-    // console.log('Exec componentWillMount');
-  }
-
-  componentDidMount() {
-    // console.log('Exec componentDidMount');
+    // console.log('# login.screen: componentWillMount');
   }
 
   render() {
@@ -86,11 +81,20 @@ class Login extends Component {
       error,
     } = this.props;
 
-    console.log('UID:', uid);
+    // console.log('UID:', uid);
     // console.log('User:', user.uid);
     // console.log('Error:', error);
 
-    // console.log('Props:' + JSON.stringify(user));
+    if(error !== '') {
+      Alert.alert(
+        'Notice',
+        error,
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
+    }
 
     return (
       <FullViewContainer>
