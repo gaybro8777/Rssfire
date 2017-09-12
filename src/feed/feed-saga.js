@@ -88,8 +88,10 @@ function* filterFeed(action) {
         const filteredFeed = feeds.filter( item => {
           return (item.feedURL === action.filter)
         });
+        // console.log('# filtered Feed:', filteredFeed);
         yield put({ type: SYSTEM_FILTER_FEEDS.SUCCESS, payload: filteredFeed });
       } else {
+        // console.log('# no filtered Feed:', feeds);
         yield put({ type: SYSTEM_FILTER_FEEDS.SUCCESS, payload: feeds });
       }
     } else {
