@@ -66,10 +66,13 @@ class Login extends Component {
     error: String,
     loginWithEmailByDispatch: Function,
     logoutByDispatch: Function,
+    initClearErrorByDispatch: Function,
+    clearErrorByDispatch: Function,
   };
 
   componentWillMount() {
     // console.log('# login.screen: componentWillMount');
+    this.props.initClearErrorByDispatch();
   }
 
   render() {
@@ -87,10 +90,10 @@ class Login extends Component {
 
     if(error !== '') {
       Alert.alert(
-        'Notice',
+        'Something Wrong!',
         error,
         [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
+          {text: 'OK', onPress: () => this.props.clearErrorByDispatch()},
         ],
         { cancelable: false }
       )

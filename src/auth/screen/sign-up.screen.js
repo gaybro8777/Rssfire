@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet, TextInput, Text, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Alert, TextInput, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { resetNavigation } from '../../utils/index';
@@ -67,10 +67,13 @@ class SignUp extends Component {
     error: String,
     signUpWithGoogleByDispatch: Function,
     signUpWithEmailByDispatch: Function,
+    initClearErrorByDispatch: Function,
+    clearErrorByDispatch: Function,
   };
 
   componentWillMount() {
     // console.log('# sign-up.screen: componentWillMount');
+    this.props.initClearErrorByDispatch();
   }
 
   render() {
@@ -85,6 +88,17 @@ class SignUp extends Component {
     // console.log('UID:', uid);
     // console.log('User: ', JSON.stringify(user));
     // console.log('Error:', error);
+
+    if(error !== '') {
+      Alert.alert(
+        'Something Wrong!',
+        error,
+        [
+          {text: 'OK', onPress: () => this.props.clearErrorByDispatch()},
+        ],
+        { cancelable: false }
+      )
+    }
 
     return (
       <FullViewContainer>
