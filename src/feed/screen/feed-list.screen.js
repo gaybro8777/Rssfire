@@ -26,6 +26,11 @@ class FeedList extends Component {
       // TODO
       // state item will be empty
       this.props.refreshFeedsByDispatch(snapshot.feeds);
+
+      this.setState({
+        items: [],
+        page: 1,
+      });
     }
   }
 
