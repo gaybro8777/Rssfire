@@ -65,9 +65,7 @@ function* getFeed(action) {
       yield put({ type: USER_PULL_REFRESH.SUCCESS, payload: sortedFeeds });
     }
 
-    const filterState = state => state.feed.filter;
-    const filter = yield select(filterState);
-    yield put({ type: SYSTEM_FILTER_FEEDS.PENDING, filter });
+    yield put({ type: SYSTEM_FILTER_FEEDS.PENDING });
 
   } catch (error) {
     if(action.type == 'SYSTEM_GET_FEEDS_PENDING') {
@@ -78,15 +76,18 @@ function* getFeed(action) {
   }
 }
 
-function* filterFeed(action) {
+function* filterFeed() {
   try {
     const feedsState = state => state.feed.feeds;
     const feeds = yield select(feedsState);
 
+    const filterState = state => state.drawer.filter;
+    const filter = yield select(filterState);
+
     if(feeds.length > 0) {
-      if(action.filter !== null) {
+      if(filter !== null) {
         const filteredFeed = feeds.filter( item => {
-          return (item.feedURL === action.filter)
+          return (item.feedURL === filter)
         });
         // console.log('# filtered Feed:', filteredFeed);
         yield put({ type: SYSTEM_FILTER_FEEDS.SUCCESS, payload: filteredFeed });
